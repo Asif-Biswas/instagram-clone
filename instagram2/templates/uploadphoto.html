@@ -1,0 +1,50 @@
+{% extends 'navbar.html' %}
+{% load static %}
+
+{% block body %}
+<div class="home-margin-top pdt4 pdr8 pdb4 pdl4">
+    <div class=" white card-2 flex-center pdy16" style="max-width: 700px; width: 100%; margin: auto;">
+        <form style="width: 100%; padding: 16px;" action="/photoUploadHandler/" method="POST" enctype="multipart/form-data">{% csrf_token %}
+            <!-- <div class="pc">
+                <input style="opacity: 0; height: 30px; font-size: 20px; position: absolute; z-index: 2;" required type="file" title="Select Image" name="photo" accept="image/*">
+                <div class=" round5 light-grey hover-grey flex-center" style="position: absolute; width: 100%; font-size: 50px; padding-bottom: 60%;">
+                    <div style="padding-top: 36px;">+</div>
+                </div>
+            </div> -->
+            <div id="imgContainer" class="pc" style="width: 200px; height: 200px;">
+                <div id="hideImgInpForm" class="light-grey" style="width: 200px; position: absolute; height: 200px; font-size: 50px;">
+                    <div style="margin-top: 20%; text-align: center;">+<br><span style="font-size: 18px;">Select image</span></div>
+                </div>
+                <input id="imgInp" style="opacity: 0; height: 200px; font-size: 20px; position: absolute; z-index: 2; width: 200px;" required type="file" title="Select Image" name="photo" accept="image/*">
+                <div style="position: absolute; width: 200px; height: 200px;">
+                    <img class="hide" id="showImage" style="width: 100%;" src="#" alt="your image">
+                </div>
+            </div>
+            <br><br>
+            <textarea style="width: 100%; height: 200px; font-size: 20px;" name="caption" id="caption" placeholder="Write something..."></textarea><br><br>
+            <button class="button blue" style="width: 100%;" type="submit">Post</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    imgInp.onchange = evt => {
+        const [file] = imgInp.files
+        if(file){
+            showImage.src = URL.createObjectURL(file)
+            //console.log(typeof file);
+            document.getElementById("showImage").className = ''
+            document.getElementById("hideImgInpForm").className = 'hide'
+            let img = new Image()
+            img.src = window.URL.createObjectURL(file)
+            img.onload=()=>{
+                const imgWidth = img.width
+                const imgHeight = img.height
+                const containerHeight = (imgHeight * 200)/imgWidth
+                document.getElementById("imgContainer").style.height = Math.ceil(containerHeight) + "px"
+                
+            }
+        }
+    }
+</script>
+{% endblock %}

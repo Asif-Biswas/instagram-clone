@@ -1,0 +1,296 @@
+
+@media (max-width:600px){.width100-in-small{width: 100%;}
+    .bottom-navbar{position: fixed; bottom: 0; width: 100%;}
+    .home-margin-top{margin-top: 54px;}
+    .explore-item-padding{padding: 1px;}  
+    .pp-img-container{width: 130px;}
+    .pp-img-container > img{width: 100px; height: 100px; border-radius: 50%; border: 1px solid lightgray; padding: 1px;}  
+    .p-username{font-size: 24px;}.pff{font-size: 16px;}
+}
+@media (min-width:601px){
+    .home-margin-top{margin-top: 70px;}
+    .pp-img-container{width: 200px;}
+    .pp-img-container > img{width: 140px; height: 140px; border-radius: 50%; border: 3px solid lightgray; padding: 2px;}
+    .p-username{font-size: 30px;} .pff{font-size: 19px;}
+}
+.hover-conversation-color:hover{background-color: rgb(255, 243, 243);}
+
+@media (min-width:601px) and (max-width:992px){
+    .explore-item-padding{padding: 4px;}
+}
+@media (min-width:993px){
+    .explore-item-padding{padding: 12px;}
+}
+
+.hover-opacity2:hover{background-color: rgba(0, 0, 0, 0.61);}.hover-opacity2{transition: .3s;}.hover-opacity2{background-color: rgba(0, 0, 0, 0);}
+.hover-opacity2:hover .hover-opacity2-child{opacity:1}.hover-opacity2 .hover-opacity2-child{opacity:0; transition: .3s;}
+
+a{text-decoration: none; color: inherit;}
+
+
+
+
+/* New */
+.tooltip{position: relative;}
+.tooltip .tooltiptext{position: absolute; visibility: hidden; z-index: 10;}
+.tooltip .tooltiptext-show{position: absolute; visibility: visible; z-index: 10;}
+@keyframes width0to100name{
+    from{width: 0;}
+    to{width: 100%;}
+}
+.width0to100{width: 0; height: 3px; background-color: white; animation-name: width0to100name; animation-duration: 5s; animation-timing-function: linear;}
+
+/*.tooltip .tooltiptext::after, .tooltip .tooltiptext-show::after {content: "";position: absolute;
+    bottom: 100%;
+    right: 10px;
+    margin-left: -5px;border-width: 5px;border-style: solid;border-color: black transparent transparent transparent;
+}*/
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+
+
+/* pdx => x-axis => left right */
+/* pdy => y-axis => top bottom */
+
+/* Padding */
+.pdx24{padding-left: 24px; padding-right: 24px;}.pdx16{padding-left: 16px; padding-right: 16px;}.pdx8{padding-left: 8px; padding-right: 8px;}
+
+.pdy24{padding-top: 24px; padding-bottom: 24px;}.pdy16{padding-top: 16px; padding-bottom: 16px;}.pdy8{padding-top: 8px; padding-bottom: 8px;}
+
+.pd4{padding: 4px;}.pd8{padding: 8px;}.pd16{padding: 16px;}.pd24{padding: 24px;}
+
+.pdt4{padding-top: 4px;}.pdt8{padding-top: 8px;}.pdt16{padding-top: 16px;}.pdt24{padding-top: 24px;}
+.pdr4{padding-right: 4px;}.pdr8{padding-right: 8px;}.pdr16{padding-right: 16px;}.pdr24{padding-right: 24px;}
+.pdb4{padding-bottom: 4px;}.pdb8{padding-bottom: 8px;}.pdb16{padding-bottom: 16px;}.pdb24{padding-bottom: 24px;}
+.pdl4{padding-left: 4px;}.pdl8{padding-left: 8px;}.pdl16{padding-left: 16px;}.pdl24{padding-left: 24px;}
+
+
+/* Margin */
+.mrx24{margin-left: 24px; margin-right: 24px;}.mrx16{margin-left: 16px; margin-right: 16px;}.mrx8{margin-left: 8px; margin-right: 8px;}
+
+.mry24{margin-top: 24px; margin-bottom: 24px;}.mry16{margin-top: 16px; margin-bottom: 16px;}.mry8{margin-top: 8px; margin-bottom: 8px;}
+
+.mr4{margin: 4px;}.mr8{margin: 8px;}.mr16{margin: 16px;}.mr24{margin: 24px;}
+
+.mrt4{margin-top: 4px;}.mrt8{margin-top: 8px;}.mrt16{margin-top: 16px;}.mrt24{margin-top: 24px;}
+.mrr4{margin-right: 4px;}.mrr8{margin-right: 8px;}.mrr16{margin-right: 16px;}.mrr24{margin-right: 24px;}
+.mrb4{margin-bottom: 4px;}.mrb8{margin-bottom: 8px;}.mrb16{margin-bottom: 16px;}.mrb24{margin-bottom: 24px;}
+.mrl4{margin-left: 4px;}.mrl8{margin-left: 8px;}.mrl16{margin-left: 16px;}.mrl24{margin-left: 24px;}
+
+.mrauto{margin: auto;}
+
+/* Font */
+
+.font-bold{font-weight: bold;}
+.cool-link {
+    display: inline-block;
+    cursor: pointer;
+    text-decoration: none;
+}
+.cool-link::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: rgb(255, 255, 255);
+    transition: width .3s;
+}
+.cool-link:hover::after {
+width: 100%;
+}
+
+
+
+.container{margin: 8px 16px;}
+
+
+@media (max-width:600px){.s1{width: 8.3333%;}.s2{width: 16.6666%;}.s3{width: 24.9999%;}
+.s4{width: 33.3333%;}.s5{width: 41.6666%;}.s6{width: 50%;}.s7{width: 58.3333%;}.s8{width: 66.6666%;}
+.s9{width: 74.9999%;}.s10{width: 83.3333%;}.s11{width: 91.6666%;}.s12{width: 100%;}
+.hide-small{display: none;}}
+@media (min-width:601px) and (max-width:992px){.m1{width: 8.3333%;}.m2{width: 16.6666%;}
+.m3{width: 24.9999%;}.m4{width: 33.3333%;}.m5{width: 41.6666%;}.m6{width: 50%;}.m7{width: 58.3333%;}
+.m8{width: 66.6666%;}.m9{width: 74.9999%;}.m10{width: 83.3333%;}.m11{width: 91.6666%;}.m12{width: 100%;}
+.hide-medium{display: none;}}
+@media (min-width:993px){.l1{width: 8.3333%;}.l2{width: 16.6666%;}.l3{width: 24.9999%;}
+.l4{width: 33.3333%;}.l5{width: 41.6666%;}.l6{width: 50%;}.l7{width: 58.3333%;}.l8{width: 66.6666%;}
+.l9{width: 74.9999%;}.l10{width: 83.3333%;}.l11{width: 91.6666%;}.l12{width: 100%;}
+.hide-large{display: none;}}
+.hide{display:none!important}
+
+
+.border{border: 2px solid;}
+.border-0{border:0!important}.border{border:1px solid #ccc!important}
+.border-top{border-top:1px solid #ccc!important}.border-bottom{border-bottom:1px solid #ccc!important}
+.border-left{border-left:1px solid #ccc!important}.border-right{border-right:1px solid #ccc!important}
+.round5{border-radius: 5px;}
+.round10{border-radius: 10px;}
+.round50{border-radius: 25px;}
+.circle{border-radius: 50%;}
+
+.position-container,.pc,.relative{position: relative;}
+.absolute{position: absolute;}
+.top-left{top: 0; left: 0; position: absolute;}
+.top-middle{position: absolute; left: 50%; top: 0px; -webkit-transform: translateX(-50%); transform: translateX(-50%)}
+.top-right{top: 0; right: 0; position: absolute;}
+.left-middle{position: absolute; top: 50%; left: 0px; -webkit-transform: translateY(-50%); transform: translateY(-50%)}
+.center{position: absolute; top: 48%; left:50%; -webkit-transform: translateX(-50%); transform: translateX(-50%)}
+.right-middle{position: absolute; top: 50%; right: 0px; -webkit-transform: translateY(-50%); transform: translateY(-50%)}
+.bottom-left{left: 0; bottom: 0; position: absolute;}
+.bottom-middle{position: absolute; left: 50%; bottom: 0px; -webkit-transform: translateX(-50%); transform: translateX(-50%)}
+.bottom-right{bottom: 0; right: 0; position: absolute;}
+
+
+.tdn{text-decoration: none;}check,.radio{width:24px;height:24px;position:relative;}
+.scrollx{overflow-x: scroll;}
+.scrolly{overflow-y: scroll;}
+.hiddenx{overflow-x: hidden;}
+.hiddeny{overflow-y: hidden;}
+.hvh{height: 100vh; overflow-y: scroll;}
+.pointer{cursor: pointer;}
+
+
+
+.flex{display: flex;}
+.inline{display:inline-block;}
+.flex-center{display: flex; justify-content: center; align-items: center;}
+.centerx{display: flex; justify-content: center;}
+.centery{display: flex; align-items: center;}
+.space-around{display: flex; justify-content: space-around; align-items: center;}
+.space-between{display: flex; justify-content: space-between; align-items: center;}
+
+::placeholder {
+  color: #818181;
+  padding: 0 4px;
+}
+:focus{outline: none;}
+
+
+
+.dropdown-hover .dropdown-content{display: none;}
+.dropdown-hover:hover .dropdown-content{display: block; position: absolute; min-width: 150px; z-index: 5;}
+
+.button{border: none; padding: 12px 24px; border-radius: 5px}
+.button:hover{color:rgb(255, 255, 255)!important;background-color:rgb(255, 0, 0)!important}
+
+.card,.card-2{box-shadow:0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)}
+.card-4,.hover-shadow:hover{box-shadow:0 4px 10px 0 rgba(0,0,0,0.2),0 4px 20px 0 rgba(0,0,0,0.19)}
+.spin{animation:spin 2s infinite linear}@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(359deg)}}
+.animate-fading{animation:fading 10s infinite}@keyframes fading{0%{opacity:0}50%{opacity:1}100%{opacity:0}}
+.animate-opacity{animation:opac 0.8s}@keyframes opac{from{opacity:0} to{opacity:1}}
+.animate-top{position:relative;animation:animatetop 0.4s}@keyframes animatetop{from{top:-300px;opacity:0} to{top:0;opacity:1}}
+.animate-left{position:relative;animation:animateleft 0.4s}@keyframes animateleft{from{left:-300px;opacity:0} to{left:0;opacity:1}}
+.animate-right{position:relative;animation:animateright 0.4s}@keyframes animateright{from{right:-300px;opacity:0} to{right:0;opacity:1}}
+.animate-bottom{position:relative;animation:animatebottom 0.4s}@keyframes animatebottom{from{bottom:-300px;opacity:0} to{bottom:0;opacity:1}}
+.animate-zoom {animation:animatezoom 0.6s}@keyframes animatezoom{from{transform:scale(0)} to{transform:scale(1)}}
+.animate-input{transition:width 0.4s ease-in-out}.animate-input:focus{width:100%!important}
+.opacity,.hover-opacity:hover{opacity:0.60}.opacity-off,.hover-opacity-off:hover{opacity:1}.hover-opacity{transition: .5s;}
+.opacity-max{opacity:0.25}.opacity-min{opacity:0.75}
+
+.effect{transition: .3s; background-color: white; color: black;}
+.effect:hover{background-color: orangered; color: white; cursor: pointer; font-weight: bold;}
+
+.hide-scrollbar::-webkit-scrollbar {display: none;}
+.hide-scrollbar{-ms-overflow-style: none;  /* IE and Edge */scrollbar-width: none;  /* Firefox */}
+
+
+
+
+
+/* Colors */
+.hover-sepia:hover{filter:sepia(100%)}.hover-grayscale:hover{filter:grayscale(100%)}
+.amber,.hover-amber:hover{color:#000!important;background-color:#ffc107!important}
+.aqua,.hover-aqua:hover{color:#000!important;background-color:#00ffff!important}
+.blue,.hover-blue:hover{color:#fff!important;background-color:#2196F3!important}
+.light-blue,.hover-light-blue:hover{color:#000!important;background-color:#87CEEB!important}
+.brown,.hover-brown:hover{color:#fff!important;background-color:#795548!important}
+.cyan,.hover-cyan:hover{color:#000!important;background-color:#00bcd4!important}
+.blue-grey,.hover-blue-grey:hover,.blue-gray,.hover-blue-gray:hover{color:#fff!important;background-color:#607d8b!important}
+.green,.hover-green:hover{color:#fff!important;background-color:#4CAF50!important}
+.light-green,.hover-light-green:hover{color:#000!important;background-color:#8bc34a!important}
+.indigo,.hover-indigo:hover{color:#fff!important;background-color:#3f51b5!important}
+.khaki,.hover-khaki:hover{color:#000!important;background-color:#f0e68c!important}
+.lime,.hover-lime:hover{color:#000!important;background-color:#cddc39!important}
+.orange,.hover-orange:hover{color:#000!important;background-color:#ff9800!important}
+.deep-orange,.hover-deep-orange:hover{color:#fff!important;background-color:#ff5722!important}
+.pink,.hover-pink:hover{color:#fff!important;background-color:#e91e63!important}
+.purple,.hover-purple:hover{color:#fff!important;background-color:#9c27b0!important}
+.deep-purple,.hover-deep-purple:hover{color:#fff!important;background-color:#673ab7!important}
+.red,.hover-red:hover{color:#fff!important;background-color:#f44336!important}
+.sand,.hover-sand:hover{color:#000!important;background-color:#fdf5e6!important}
+.teal,.hover-teal:hover{color:#fff!important;background-color:#009688!important}
+.yellow,.hover-yellow:hover{color:#000!important;background-color:#ffeb3b!important}
+.white,.hover-white:hover{color:#000!important;background-color:#fff!important}
+.black,.hover-black:hover{color:#fff!important;background-color:rgb(51, 51, 51)!important}
+.grey,.hover-grey:hover,.gray,.hover-gray:hover{color:#000!important;background-color:#9e9e9e!important}
+.light-grey,.hover-light-grey:hover,.light-gray,.hover-light-gray:hover{color:rgb(0, 0, 0)!important;background-color:lightgray!important}
+.dark-grey,.hover-dark-grey:hover,.dark-gray,.hover-dark-gray:hover{color:#fff!important;background-color:#616161!important}
+.pale-red,.hover-pale-red:hover{color:#000!important;background-color:#ffdddd!important}
+.pale-green,.hover-pale-green:hover{color:#000!important;background-color:#ddffdd!important}
+.pale-yellow,.hover-pale-yellow:hover{color:#000!important;background-color:#ffffcc!important}
+.pale-blue,.hover-pale-blue:hover{color:#000!important;background-color:#ddffff!important}
+.text-amber,.hover-text-amber:hover{color:#ffc107!important}
+.text-aqua,.hover-text-aqua:hover{color:#00ffff!important}
+.text-blue,.hover-text-blue:hover{color:#2196F3!important}
+.text-light-blue,.hover-text-light-blue:hover{color:#87CEEB!important}
+.text-brown,.hover-text-brown:hover{color:#795548!important}
+.text-cyan,.hover-text-cyan:hover{color:#00bcd4!important}
+.text-blue-grey,.hover-text-blue-grey:hover,.text-blue-gray,.hover-text-blue-gray:hover{color:#607d8b!important}
+.text-green,.hover-text-green:hover{color:#4CAF50!important}
+.text-light-green,.hover-text-light-green:hover{color:#8bc34a!important}
+.text-indigo,.hover-text-indigo:hover{color:#3f51b5!important}
+.text-khaki,.hover-text-khaki:hover{color:#b4aa50!important}
+.text-lime,.hover-text-lime:hover{color:#cddc39!important}
+.text-orange,.hover-text-orange:hover{color:#ff9800!important}
+.text-deep-orange,.hover-text-deep-orange:hover{color:#ff5722!important}
+.text-pink,.hover-text-pink:hover{color:#e91e63!important}
+.text-purple,.hover-text-purple:hover{color:#9c27b0!important}
+.text-deep-purple,.hover-text-deep-purple:hover{color:#673ab7!important}
+.text-red,.hover-text-red:hover{color:#f44336!important}
+.text-sand,.hover-text-sand:hover{color:#fdf5e6!important}
+.text-teal,.hover-text-teal:hover{color:#009688!important}
+.text-yellow,.hover-text-yellow:hover{color:#d2be0e!important}
+.text-white,.hover-text-white:hover{color:#fff!important}
+.text-black,.hover-text-black:hover{color:#000!important}
+.text-grey,.hover-text-grey:hover,.text-gray,.hover-text-gray:hover{color:#757575!important}
+.text-light-grey,.hover-text-light-grey:hover,.text-light-gray,.hover-text-light-gray:hover{color:#f1f1f1!important}
+.text-dark-grey,.hover-text-dark-grey:hover,.text-dark-gray,.hover-text-dark-gray:hover{color:#3a3a3a!important}
+.border-amber,.hover-border-amber:hover{border-color:#ffc107!important}
+.border-aqua,.hover-border-aqua:hover{border-color:#00ffff!important}
+.border-blue,.hover-border-blue:hover{border-color:#2196F3!important}
+.border-light-blue,.hover-border-light-blue:hover{border-color:#87CEEB!important}
+.border-brown,.hover-border-brown:hover{border-color:#795548!important}
+.border-cyan,.hover-border-cyan:hover{border-color:#00bcd4!important}
+.border-blue-grey,.hover-border-blue-grey:hover,.border-blue-gray,.hover-border-blue-gray:hover{border-color:#607d8b!important}
+.border-green,.hover-border-green:hover{border-color:#4CAF50!important}
+.border-light-green,.hover-border-light-green:hover{border-color:#8bc34a!important}
+.border-indigo,.hover-border-indigo:hover{border-color:#3f51b5!important}
+.border-khaki,.hover-border-khaki:hover{border-color:#f0e68c!important}
+.border-lime,.hover-border-lime:hover{border-color:#cddc39!important}
+.border-orange,.hover-border-orange:hover{border-color:#ff9800!important}
+.border-deep-orange,.hover-border-deep-orange:hover{border-color:#ff5722!important}
+.border-pink,.hover-border-pink:hover{border-color:#e91e63!important}
+.border-purple,.hover-border-purple:hover{border-color:#9c27b0!important}
+.border-deep-purple,.hover-border-deep-purple:hover{border-color:#673ab7!important}
+.border-red,.hover-border-red:hover{border-color:#f44336!important}
+.border-sand,.hover-border-sand:hover{border-color:#fdf5e6!important}
+.border-teal,.hover-border-teal:hover{border-color:#009688!important}
+.border-yellow,.hover-border-yellow:hover{border-color:#ffeb3b!important}
+.border-white,.hover-border-white:hover{border-color:#fff!important}
+.border-black,.hover-border-black:hover{border-color:#000!important}
+.border-grey,.hover-border-grey:hover,.border-gray,.hover-border-gray:hover{border-color:#9e9e9e!important}
+.border-light-grey,.hover-border-light-grey:hover,.border-light-gray,.hover-border-light-gray:hover{border-color:lightgray!important}
+.border-dark-grey,.hover-border-dark-grey:hover,.border-dark-gray,.hover-border-dark-gray:hover{border-color:#616161!important}
+.border-pale-red,.hover-border-pale-red:hover{border-color:#ffe7e7!important}.border-pale-green,.hover-border-pale-green:hover{border-color:#e7ffe7!important}
+.border-pale-yellow,.hover-border-pale-yellow:hover{border-color:#ffffcc!important}.border-pale-blue,.hover-border-pale-blue:hover{border-color:#e7ffff!important}
+
+
+
+
+
+
+
+
+

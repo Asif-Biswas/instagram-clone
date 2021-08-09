@@ -1,0 +1,100 @@
+{% extends 'navbar.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="home-margin-top">
+    <div style="width: 100%; max-width: 800px; margin: auto;">
+        <div class="flex white mr8" style="border: gray 1px solid;">
+            <div class="hide-small hide-medium border-right border-gray" style="width: 350px;">
+                <div class="mr8">
+                    <button class="button light-gray" style="width: 100%; font-size: 18px;">Edit Profile</button>
+                    <button class="button white" style="width: 100%; font-size: 18px;">Change Password</button>
+                    <button class="button white" style="width: 100%; font-size: 18px;">Apps and Websites</button>
+                    <button class="button white" style="width: 100%; font-size: 18px;">Email and SMS</button>
+                    <button class="button white" style="width: 100%; font-size: 18px;">Push Notifications</button>
+                    <button class="button white" style="width: 100%; font-size: 18px;">Manage Contacts</button>
+                    <button class="button white" style="width: 100%; font-size: 18px;">Privacy and Security</button>
+                    <button class="button white" style="width: 100%; font-size: 18px;">Login Activity</button>
+                    <button class="button white" style="width: 100%; font-size: 18px;">Emails from Instagram</button>
+                </div>
+            </div>
+            <div style="width: 100%;">
+                <div class="pd16 flex">
+                    <div style="width: 20%; display: flex; justify-content: flex-end; margin-right: 12px;">
+                        <img style="width: 40px; height: 40px; border-radius: 50%;" src="{{ aboutMe.profilePicture.url }}" alt="your pp">
+                    </div>
+                    <div>
+                        asif.biswas <br>
+                        <span class="text-blue">Change Profile Picture</span>
+                    </div>
+                </div>
+                <div class="pd16 flex">
+                    <div style="width: 20%; display: flex; justify-content: flex-end; margin-right: 12px;">
+                        <span style="font-size: 18px; margin-top: 4px;">Name</span>
+                    </div>
+                    <div style="width: 70%;">
+                        <input id="name" style="width: 100%; height: 26px; font-size: 17px; padding-left: 6px;" type="text">
+                        <p style="color: gray; font-size: 13px;">Help people discover your account by using the name you're known by: either your full name, nickname, or business name.<br><br>You can only change your name twice within 14 days.</p>
+                    </div>
+                </div>
+                <div class="pd16 flex">
+                    <div style="width: 20%; display: flex; justify-content: flex-end; margin-right: 12px;">
+                        <span style="font-size: 18px; margin-top: 4px;">Userame</span>
+                    </div>
+                    <div style="width: 70%;">
+                        <input id="username" style="width: 100%; height: 26px; font-size: 17px; padding-left: 6px;" type="text">
+                        <p style="color: gray; font-size: 13px;">In most cases, you'll be able to change your username back to asif.biswas for another 14 days. <span class="text-blue pointer">Learn More</span></p>
+                    </div>
+                </div>
+                <div class="pd16 flex">
+                    <div style="width: 20%; display: flex; justify-content: flex-end; margin-right: 12px;">
+                        <span style="font-size: 18px; margin-top: 4px;">Website</span>
+                    </div>
+                    <div style="width: 70%;">
+                        <input style="width: 100%; height: 26px; font-size: 17px; padding-left: 6px;" type="text" placeholder="Website">
+                    </div>
+                </div>
+                <div class="pd16 flex">
+                    <div style="width: 20%; display: flex; justify-content: flex-end; margin-right: 12px;">
+                        <span style="font-size: 18px; margin-top: 4px;">Bio</span>
+                    </div>
+                    <div style="width: 70%;">
+                        <textarea style="max-width: 100%; width: 100%; height: 26px; font-size: 17px; padding-left: 6px; height: 100px;" placeholder="Write something about you..."></textarea>
+                    </div>
+                </div>
+                <div class="pd16 flex">
+                    <div style="width: 20%; display: flex; justify-content: flex-end; margin-right: 12px;">
+                        <span style="font-size: 18px; margin-top: 4px;">Email</span>
+                    </div>
+                    <div style="width: 70%;">
+                        <input id="email" style="width: 100%; height: 26px; font-size: 17px; padding-left: 6px;" type="text" placeholder="Email">
+                    </div>
+                </div>
+                <div class="pd16 flex">
+                    <div style="width: 20%; display: flex; justify-content: flex-end;">
+                        <button class="button blue">Save</button>
+                    </div>
+                    <div style="width: 70%;">
+                        <!-- <input id="email" style="width: 100%; height: 26px; font-size: 17px; padding-left: 6px;" type="text" placeholder="Email"> -->
+                    </div>
+                </div>
+                <!-- <br>
+                <button class="button blue" style="margin-left: 15%;">Save</button>
+                <br><br> -->
+            </div>
+        </div>
+    </div>
+</div>
+<br><br><br><br>
+
+<script>
+    function test(){
+        document.getElementById("name").value = 'Asif Biswas'
+        document.getElementById("username").value = 'asif.biswas'
+        document.getElementById("email").value = 'asifbiswas85@gmail.com'
+    }
+    test()
+</script>
+
+{% endblock %}

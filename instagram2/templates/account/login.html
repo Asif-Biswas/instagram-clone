@@ -1,0 +1,178 @@
+{% load socialaccount %}
+{% providers_media_js %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="{% static 'style.css' %}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Instagram clone</title>
+</head>
+<body style="margin: -8px; overflow-x: hidden;">
+
+    <div id="loginContainer" class="animate-top" style="width: 100vw; height: 100vh; background-color: rgb(255, 250, 246); display: flex; justify-content: center; align-items: center; flex-direction: column;">
+        <div class="border border-gray" style="width: 100%; max-width: 400px; background-color: rgb(255, 255, 255);">
+            <h1 style="text-align: center; font-family: cursive;">Instagram</h1>
+            <div style="width: 100%; max-width: 300px; margin: auto;">
+                <div id="invalid2"></div>
+                <input id="lUsername" style="width: 100%; height: 36px; border-radius: 3px; border: 1px solid gray; background-color: rgb(255, 252, 247); padding-left: 8px; font-size: 15px;" type="text" placeholder="Username"> <br/><br/>
+                <input id="lPass" style="width: 100%; height: 36px; border-radius: 3px; border: 1px solid gray; background-color: rgb(255, 252, 247); padding-left: 8px; font-size: 15px;" type="password" placeholder="Password"> <br/><br/>
+                <button onclick="handleLogin()" class="blue hover-gray border-0 pointer" style="width: 100%; height: 30px;border-radius: 3px; ">Login</button>
+                <br/><br/>
+                <div class="flex">
+                    <div style="width: 40%; border-top: 1px solid lightgray; margin-top: 24px;"></div>
+                    <p style="width: 20%; text-align: center; color: gray;">OR</p>
+                    <div style="width: 40%; border-top: 1px solid lightgray; margin-top: 24px;"></div>
+                </div>
+                <br>
+                <a href="{% provider_login_url 'facebook' method='js_sdk' %}"><button class="effect" style="width: 100%; background-color: rgb(58, 110, 255); height: 36px; border: none; color: white; border-radius: 3px; display: flex; justify-content: center;align-items: center;"><img style="height: 24px; width: 24px; background-color: white; padding: 1px; border-radius: 50%;" src="{% static 'images/fblogo.png' %}" alt=""><span style="margin-top: 2px; display: block; margin-left: 8px; font-size: 16px;"> Login with Facebook</span></button></a> <br>
+                <a href="/accounts/google/login/"><button class="effect" style="width: 100%; background-color: rgb(255, 26, 26); height: 36px; border: none; color: white; border-radius: 3px; display: flex; justify-content: center;align-items: center;"><img style="height: 22px; width: 22px; background-color: white; padding: 3px; border-radius: 50%;" src="{% static 'images/googlelogo.png' %}" alt=""><span style="margin-top: 2px; display: block; margin-left: 8px; font-size: 16px;"> Login with Google</span></button></a> <br><br>
+            </div>
+        </div>
+        <div class="border border-gray mrt16" style="width: 100%; max-width: 400px; background-color: rgb(255, 255, 255);">
+            <p style="text-align: center;">Don't have an account?<span onclick="loginOrSignup(1)" class="text-blue pointer"> Sign up</span></p>
+        </div>
+    </div>
+
+
+    <div id="signupContainer" class="hide" style="width: 100vw; height: 100vh; padding-top: 16px; padding-bottom: 64px; background-color: rgb(255, 250, 246); display: flex; justify-content: center; align-items: center; flex-direction: column;">
+        <div class="border border-gray" style="width: 100%; max-width: 400px; background-color: rgb(255, 255, 255);">
+            <h1 style="text-align: center; font-family: cursive;">Instagram</h1>
+            <div style="width: 100%; max-width: 300px; margin: auto;">
+                <div id="invalid"></div>
+                <input id="sFullname" style="width: 100%; height: 36px; border-radius: 3px; border: 1px solid gray; background-color: rgb(255, 252, 247); padding-left: 8px; font-size: 15px; margin-bottom: 8px;" type="text" placeholder="Full name" required> <br/>
+                <input id="sUsername" style="width: 100%; height: 36px; border-radius: 3px; border: 1px solid gray; background-color: rgb(255, 252, 247); padding-left: 8px; font-size: 15px; margin-bottom: 8px;" type="text" placeholder="Username" required> <br/>
+                <input id="email" style="width: 100%; height: 36px; border-radius: 3px; border: 1px solid gray; background-color: rgb(255, 252, 247); padding-left: 8px; font-size: 15px; margin-bottom: 8px;" type="email" placeholder="Email" required> <br/>
+                <input id="sPass1" style="width: 100%; height: 36px; border-radius: 3px; border: 1px solid gray; background-color: rgb(255, 252, 247); padding-left: 8px; font-size: 15px; margin-bottom: 8px;" type="password" placeholder="Password" required> <br/>
+                <input id="sPass2" style="width: 100%; height: 36px; border-radius: 3px; border: 1px solid gray; background-color: rgb(255, 252, 247); padding-left: 8px; font-size: 15px; margin-bottom: 8px;" type="password" placeholder="Password (again)" required> <br/>
+                <button onclick="handleSignip()" class="pointer blue hover-gray border-0" style="width: 100%; height: 30px;border-radius: 3px; ">Sign up</button>
+                <br/><br/>
+                <div class="flex">
+                    <div style="width: 40%; border-top: 1px solid lightgray; margin-top: 24px;"></div>
+                    <p style="width: 20%; text-align: center; color: gray;">OR</p>
+                    <div style="width: 40%; border-top: 1px solid lightgray; margin-top: 24px;"></div>
+                </div>
+                <br>
+                <a href="{% provider_login_url 'facebook' method='js_sdk' %}"><button class="effect" style="width: 100%; background-color: rgb(58, 110, 255); height: 36px; border: none; color: white; border-radius: 3px; display: flex; justify-content: center;align-items: center;"><img style="height: 24px; width: 24px; background-color: white; padding: 1px; border-radius: 50%;" src="{% static 'images/fblogo.png' %}" alt=""><span style="margin-top: 2px; display: block; margin-left: 8px; font-size: 16px;"> Login with Facebook</span></button></a> <br>
+                <a href="/accounts/google/login/"><button class="effect" style="width: 100%; background-color: rgb(255, 26, 26); height: 36px; border: none; color: white; border-radius: 3px; display: flex; justify-content: center;align-items: center;"><img style="height: 22px; width: 22px; background-color: white; padding: 3px; border-radius: 50%;" src="{% static 'images/googlelogo.png' %}" alt=""><span style="margin-top: 2px; display: block; margin-left: 8px; font-size: 16px;"> Login with Google</span></button></a> <br><br>
+            </div>
+        </div>
+        <div class="border border-gray mrt16" style="width: 100%; max-width: 400px; background-color: rgb(255, 255, 255);">
+            <p style="text-align: center;">Have an account?<span onclick="loginOrSignup()" class="text-blue pointer"> Log in</span></p>
+        </div>
+    </div>
+
+    <!-- login
+    <a href="/accounts/google/login/"><button>google</button></a>
+    <a href="{% provider_login_url 'facebook' method='js_sdk' %}">Login Button image</a> -->
+
+    <script>
+        function loginOrSignup(x){
+            if (x===1){
+                document.getElementById("loginContainer").className = 'hide'
+                document.getElementById("signupContainer").className = 'animate-top'
+            }else{
+                document.getElementById("loginContainer").className = 'animate-top'
+                document.getElementById("signupContainer").className = 'hide'
+            }
+        }
+
+        function handleSignip(){
+            var fullname = document.getElementById("sFullname").value
+            var username = document.getElementById("sUsername").value
+            var email = document.getElementById("email").value
+            var pass1 = document.getElementById("sPass1").value
+            var pass2 = document.getElementById("sPass2").value
+            
+            var data = JSON.stringify({
+                fullname: fullname,
+                username: username,
+                email: email,
+                pass1: pass1,
+                pass2: pass2
+            })
+            fetch("/handleSignup/", {
+                method: 'POST',
+                body: data,
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Contentt-type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                }
+            })
+            .then((response)=>{
+                response.json().then((result)=>{
+                    if(result.response==='ok'){
+                        location.reload()
+                    }
+                    if(result.response==='Username can\'t be empty'){
+                        document.getElementById("invalid").innerHTML += '<li>'+result.response+'</li><br/>'
+                    }
+                    if(result.response==='Username must contain letters, digits and @/./+/-/_ only.'){
+                        document.getElementById("invalid").innerHTML += '<li>'+result.response+'</li><br/>'
+                    }
+                    if(result.response==='The two password field didn\'t match.'){
+                        document.getElementById("invalid").innerHTML += '<li>'+result.response+'</li><br/>'
+                    }
+                    if(result.response==='This username is already taken. Please try another one.'){
+                        document.getElementById("invalid").innerHTML += '<li>'+result.response+'</li><br/>'
+                    }
+                    if(result.response==='Your password must contain at least 4 characters.'){
+                        document.getElementById("invalid").innerHTML += '<li>'+result.response+'</li><br/>'
+                    }
+                })
+            })
+        }
+
+        function handleLogin(){
+            var username = document.getElementById("lUsername").value
+            var pass = document.getElementById("lPass").value
+            
+            var data = JSON.stringify({
+                username: username,
+                pass: pass,
+            })
+            fetch("/handleLogin/", {
+                method: 'POST',
+                body: data,
+                headers: {
+                    'Accept': 'application/json, text/plain',
+                    'Contentt-type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                }
+            })
+            .then((response)=>{
+                response.json().then((result)=>{
+                    if(result.response==='ok'){
+                        location.reload()
+                    }else{
+                        document.getElementById("invalid2").innerHTML = '<li>'+result.response+'.</li><br/>'
+                    }
+                })
+            })
+        }
+
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        let csrftoken = this.getCookie('csrftoken');
+    </script>
+
+</body>
+</html>

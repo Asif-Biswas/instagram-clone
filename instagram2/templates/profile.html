@@ -1,0 +1,112 @@
+{% extends 'navbar.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="home-margin-top">
+    <div class="mr8">
+        <div style="width: 100%; max-width: 700px; margin: auto;">
+            <div class="" style="display: flex; justify-content: space-around;">
+                <div class="pp-img-container pdt16" class="centerx ">
+                    <img src="{{aboutMe.profilePicture.url}}" alt="">
+                </div>
+                <div style="width: 100%; max-width: 400px; margin-left: 36px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <p class="p-username" style="margin-right: 12px;">{{ request.user.username }}</p>
+                        <button class="button mrx16 hover-gray blue hide" style="width: 80%;">Follow</button>
+                        <!-- <p class="border border-gray mrx16 pdx24 pdy8 round5 hover-blue hide-small">Message</p> -->
+                        <a href={% url 'editProfile' %}><p class="border border-gray mrx16 pdx24 pdy8 round5 hover-blue hide-small">Edit Profile</p></a>
+                        <p class="p-username" style="margin-top: 8px; padding: 0 8px;">...</p>
+                    </div>
+
+                    <div class="hide-medium hide-large" style="margin: -16px 8px 18px 0; opacity: .5; font-size: 19px;">{{ request.user.first_name }} {{ request.user.last_name }}</div>
+
+                    <div class="flex" style="width: 100%;">
+                        <a href={% url 'editProfile' %}><div class="border border-gray pdx24 pdy8 round5 hover-blue hide-large hide-medium" style="text-align: center; width: 60%; max-width: 120px; margin: -8px 8px 12px 0;">Edit Profile</div></a>
+                        <!-- <div class="border border-gray pdx24 pdy8 round5 hover-blue hide-large hide-medium" style="text-align: center; width: 60%; max-width: 120px; margin: -8px 8px 12px 0;">Message</div> -->
+                        <!-- <div class="border border-gray pdx8 pdy8 round5 hover-gray hide-large hide-medium" style="text-align: center; width: 40%; max-width: 60px; margin: -8px 8px 12px 0; height: 18px;">
+                            <span><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></span>
+                            <span style="margin-left: -4px;"><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg></span>
+                        </div> -->
+                    </div>
+                    
+                    <div class="pff" style="display: flex; justify-content: space-between; align-items: center; margin-top: -16px;">
+                        <p><b>642</b> posts</p>
+                        <p><b>21.5k</b> followers</p>
+                        <p><b>142</b> following</p>
+                    </div>
+                    <div class="hide-medium hide-large"><span style="opacity: .6;">Followed by </span> jhankarmahbub, aymansadiq10 <span style="opacity: .6;">and</span> tahsankhan</div>
+                </div>
+            </div>
+            <div class="p-username hide-small" style="margin: 16px 8px 18px 0;">{{ request.user.first_name }} {{ request.user.last_name }}</div>
+            <p class="hide-small"><span style="opacity: .6;">Followed by </span> jhankarmahbub, aymansadiq10 <span style="opacity: .6;">and</span> tahsankhan</p>
+        </div>
+
+
+        <div style="width: 100%; max-width: 800px; margin: 36px auto; padding-top: 16px; border-top: 1px solid rgb(161, 161, 161);">
+            <div class="flex pdb16">
+                <span><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg></span>
+                <span style="display: block; margin-top: 4px; margin-left: 8px;">Posts</span>
+            </div>
+            <div style="position: relative; padding-bottom: 33.333%;">
+                <div class="" style="top: 0; right: 0; bottom: 0; left: 0; display: flex; position: absolute;">
+                    <div class="s4 m4 l4 pc" style="padding-bottom: calc(33.333%-32px);">
+                        <div class="explore-item-padding" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
+                            <div style="height: 100%; width: 100%; position: relative;">
+                                <img src="{% static 'images/trk.jpg' %}" height="100%" width="100%" alt="img">
+                                <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;"><span class="hover-opacity2-child">ewbf few</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="s4 m4 l4 pc" style="padding-bottom: calc(33.333%-32px);">
+                        <div class="explore-item-padding" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
+                            <div style="height: 100%; width: 100%; position: relative;">
+                                <img src="{% static 'images/trk.jpg' %}" height="100%" width="100%" alt="img">
+                                <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;"><span class="hover-opacity2-child">ewbf few</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="s4 m4 l4 pc" style="padding-bottom: calc(33.333%-32px);">
+                        <div class="explore-item-padding" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
+                            <div style="height: 100%; width: 100%; position: relative;">
+                                <img src="{% static 'images/trk.jpg' %}" height="100%" width="100%" alt="img">
+                                <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;"><span class="hover-opacity2-child">ewbf few</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="position: relative; padding-bottom: 33.333%;">
+                <div class="" style="top: 0; right: 0; bottom: 0; left: 0; display: flex; position: absolute;">
+                    <div class="s4 m4 l4 pc" style="padding-bottom: calc(33.333%-32px);">
+                        <div class="explore-item-padding" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
+                            <div style="height: 100%; width: 100%; position: relative;">
+                                <img src="{% static 'images/trk.jpg' %}" height="100%" width="100%" alt="img">
+                                <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;"><span class="hover-opacity2-child">ewbf few</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="s4 m4 l4 pc" style="padding-bottom: calc(33.333%-32px);">
+                        <div class="explore-item-padding" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
+                            <div style="height: 100%; width: 100%; position: relative;">
+                                <img src="{% static 'images/trk.jpg' %}" height="100%" width="100%" alt="img">
+                                <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;"><span class="hover-opacity2-child">ewbf few</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="s4 m4 l4 pc" style="padding-bottom: calc(33.333%-32px);">
+                        <div class="explore-item-padding" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
+                            <div style="height: 100%; width: 100%; position: relative;">
+                                <img src="{% static 'images/trk.jpg' %}" height="100%" width="100%" alt="img">
+                                <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;"><span class="hover-opacity2-child">ewbf few</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
