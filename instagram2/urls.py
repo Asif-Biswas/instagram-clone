@@ -5,7 +5,8 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('message/', views.message, name='message'),
     path('explore/', views.explore, name='explore'),
-    path('profile/', views.profile, name='profile'),
+    path('exploreMore/<str:pk>/', views.exploreMore, name='exploreMore'),
+    path('profile/<str:pk>/', views.profile, name='profile'),
     path('editProfile/', views.editProfile, name='editProfile'),
     path('handleSignup/', views.handleSignup, name='handleSignup'),
     path('handleLogin/', views.handleLogin, name='handleLogin'),
@@ -18,5 +19,7 @@ urlpatterns = [
     path('photoUploadHandler/', views.photoUploadHandler, name='photoUploadHandler'),
     path('sendMessage/', views.sendMessage, name='sendMessage'),
     path('conversation/<str:pk>/', views.conversation, name='conversation'),
-    
+    path('sendMessageFromStories/', views.sendMessageFromStories, name='sendMessageFromStories'),
+    path('userPosts/<str:pk>/', views.userPosts, name='userPosts'),
+    path('getMoreUserPost/', views.getMoreUserPost, name='getMoreUserPost'),
 ]

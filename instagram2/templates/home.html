@@ -9,52 +9,24 @@
             <div class="border border-light-gray" style="height: 120px; max-width: 600px; margin: auto;">
                 <div class="centery white" style="display: flex; align-items: center; justify-content: center; height: 100%;">
                     <div class="scrollx hide-scrollbar pdt16 flex pdl8">
-                        <div class="mrx8 pc">
+                        <a href="{% url 'uploadPhoto' %}"><div class="mrx8 pc">
                             <img style="width: 60px; height: 60px; border-radius: 50%; padding: 5px;" src="{{aboutMe.profilePicture.url}}"/>
                             <p style="margin-top: -2px; font-size: 14px; max-width: 70px; overflow-x: hidden; text-align: center;">Your Story</p>
                             <div style="position: absolute; top: 48px; left: 60%; border: 1px solid #ffffff; background-color: rgb(55, 135, 255); color: white; border-radius: 50%; padding: 0 4px;">+</div>
-                        </div>
+                        </div></a>
 
-                        <div class="mrx8">
-                            <img style="width: 60px; height: 60px; border-radius: 50%; border: 3px solid rgb(248, 101, 43); padding: 2px;" src="{% static 'images/useravater.png' %}"/>
-                            <p style="margin-top: -2px; max-width: 70px; overflow-x: hidden; font-size: 14px; text-align: center;">if.biswas</p>
+                        {% for s in stories %}
+                        <div onclick="showStories({{s.id}})" class="mrx8 pointer hover-opacity">
+                            <img id="storiesUserProfilePicture-{{s.id}}" class="hide" src="{{ s.userProfilePicture.url }}" />
+                            <img id="storiesImage-{{s.id}}" style="width: 60px; height: 60px; border-radius: 50%; border: 3px solid rgb(248, 101, 43); padding: 2px;" src="{{s.image.url}}"/>
+                            <p id="storiesUsername-{{s.id}}" style="margin-top: -2px; max-width: 70px; overflow-x: hidden; font-size: 14px; text-align: center;">{{s.user.first_name}}</p>
                         </div>
-                        <div class="mrx8">
-                            <img style="width: 60px; height: 60px; border-radius: 50%; border: 3px solid rgb(248, 101, 43); padding: 2px;" src="{% static 'images/useravater.png' %}"/>
-                            <p style="margin-top: -2px; font-size: 14px; max-width: 70px; overflow-x: hidden;">asif.bis.jwas</p>
-                        </div>
-                        <div class="mrx8">
-                            <img style="width: 60px; height: 60px; border-radius: 50%; border: 3px solid rgb(248, 101, 43); padding: 2px;" src="{% static 'images/useravater.png' %}"/>
-                            <p style="margin-top: -2px; font-size: 14px; max-width: 70px; overflow-x: hidden; text-align: center;">asif.biswas</p>
-                        </div>
-                        <div class="mrx8">
-                            <img style="width: 60px; height: 60px; border-radius: 50%; border: 3px solid rgb(248, 101, 43); padding: 2px;" src="{% static 'images/useravater.png' %}"/>
-                            <p style="margin-top: -2px; font-size: 14px; max-width: 70px; overflow-x: hidden;">ag.sif.biswas</p>
-                        </div>
-                        <div class="mrx8">
+                        {% endfor %}
+                        
+                        <!-- <div class="mrx8">
                             <img style="width: 60px; height: 60px; border-radius: 50%; border: 3px solid rgb(248, 101, 43); padding: 2px;" src="{% static 'images/useravater.png' %}"/>
                             <p style="margin-top: -2px; font-size: 14px; max-width: 70px; overflow-x: hidden;">asif.biswas</p>
-                        </div>
-                        <div class="mrx8">
-                            <img style="width: 60px; height: 60px; border-radius: 50%; border: 3px solid rgb(248, 101, 43); padding: 2px;" src="{% static 'images/useravater.png' %}"/>
-                            <p style="margin-top: -2px; font-size: 14px; max-width: 70px; overflow-x: hidden;">asif.bi.lo.swas</p>
-                        </div>
-                        <div class="mrx8">
-                            <img style="width: 60px; height: 60px; border-radius: 50%; border: 3px solid rgb(248, 101, 43); padding: 2px;" src="{% static 'images/useravater.png' %}"/>
-                            <p style="margin-top: -2px; font-size: 14px; max-width: 70px; overflow-x: hidden;">asif.biswas</p>
-                        </div>
-                        <div class="mrx8">
-                            <img style="width: 60px; height: 60px; border-radius: 50%; border: 3px solid rgb(248, 101, 43); padding: 2px;" src="{% static 'images/useravater.png' %}"/>
-                            <p style="margin-top: -2px; font-size: 14px; max-width: 70px; overflow-x: hidden;">asif.biswas</p>
-                        </div>
-                        <div class="mrx8">
-                            <img style="width: 60px; height: 60px; border-radius: 50%; border: 3px solid rgb(248, 101, 43); padding: 2px;" src="{% static 'images/useravater.png' %}"/>
-                            <p style="margin-top: -2px; font-size: 14px; max-width: 70px; overflow-x: hidden;">asif.biswas</p>
-                        </div>
-                        <div class="mrx8">
-                            <img style="width: 60px; height: 60px; border-radius: 50%; border: 3px solid rgb(248, 101, 43); padding: 2px;" src="{% static 'images/useravater.png' %}"/>
-                            <p style="margin-top: -2px; font-size: 14px; max-width: 70px; overflow-x: hidden;">asif.biswas</p>
-                        </div>
+                        </div> -->
                         
                     </div>
                 </div>
@@ -233,51 +205,28 @@
                 </div>
 
 
-                <div class="space-between mry8" style="width: 300px;">
-                    <div class="flex">
-                        <div style="width: 40px;">
-                            <img style="height: 40px; width: 40px; border-radius: 50%;" src="{% static 'images/useravater.png' %}" alt="user">
+                {% for s in randomUser %}
+                    <div class="space-between mry8" style="width: 300px;">
+                        <div class="flex">
+                            <div style="width: 40px;">
+                                <img style="height: 40px; width: 40px; border-radius: 50%;" src="{{s.profilePicture}}" alt="user">
+                            </div>
+                            <div style="margin: auto 12px;">
+                                <div>{{s.username}}</div>
+                                {% if s.randomFollower == 'New to Instagram' %}
+                                    <div style="opacity: .6; font-size: small;">New to Instagram</div>
+                                {% elif s.randomFollower == 'Follows you' %}
+                                    <div style="opacity: .6; font-size: small;">Follows you</div>
+                                {% else %}
+                                    <div style="opacity: .6; font-size: small;">Followed by {{s.randomFollower}}</div>
+                                {% endif %}
+                            </div>
                         </div>
-                        <div style="margin: auto 12px;">
-                            <div>asif.biswas</div>
-                            <div style="opacity: .6; font-size: small;">followed by badsha.mahmud</div>
-                        </div>
+                        <div class="centery text-blue pointer mrl4">Follow</div>
                     </div>
-                    <div class="centery text-blue pointer mrl4">Follow</div>
-                </div>
-                <div class="space-between mry8" style="width: 300px;">
-                    <div class="flex">
-                        <div style="width: 50px;">
-                            <img style="height: 40px; width: 40px; border-radius: 50%;" src="{% static 'images/useravater.png' %}" alt="user">
-                        </div>
-                        <div style="margin: auto 12px;">
-                            <div>asif.biswas</div>
-                            <div style="opacity: .6; font-size: small;">followed by brg.rth.adsha.mahmud.mishan</div>
-                        </div>
-                    </div>
-                    <div class="centery text-blue pointer">Follow</div>
-                </div>
-                <div class="space-between mry8" style="width: 300px;">
-                    <div class="flex">
-                        <img style="height: 40px; width: 40px; border-radius: 50%;" src="{% static 'images/useravater.png' %}" alt="user">
-                        <div style="margin: auto 12px;">
-                            <div>asif.biswas</div>
-                            <div style="opacity: .6; font-size: small;">followed by badsha.mahmud.mishan</div>
-                        </div>
-                    </div>
-                    <div class="centery text-blue pointer">Follow</div>
-                </div>
-                <div class="space-between mry8" style="width: 300px;">
-                    <div class="flex">
-                        <img style="height: 40px; width: 40px; border-radius: 50%;" src="{% static 'images/useravater.png' %}" alt="user">
-                        <div style="margin: auto 12px;">
-                            <div>asif.biswas</div>
-                            <div style="opacity: .6; font-size: small;">Follows you</div>
-                        </div>
-                    </div>
-                    <div class="centery text-blue pointer">Follow</div>
-                </div>
-                <div class="space-between mry8" style="width: 300px;">
+                {% endfor %}
+                
+                <!-- <div class="space-between mry8" style="width: 300px;">
                     <div class="flex">
                         <img style="height: 40px; width: 40px; border-radius: 50%;" src="{% static 'images/useravater.png' %}" alt="user">
                         <div style="margin: auto 12px;">
@@ -286,7 +235,7 @@
                         </div>
                     </div>
                     <div class="centery text-blue pointer">Follow</div>
-                </div>
+                </div> -->
 
 
                 <div style="opacity: .2; display: inline-block; font-size: 12px; width: 300px;">
@@ -455,10 +404,6 @@
         
     }
 
-    function scrollToBottom(){
-        let y = window.pageYOffset
-        window.scrollTo({top: y+160, behavior: 'smooth'})
-    }
 
     function addComment(id){
         const comment = document.getElementById("comment-"+id).value
@@ -508,6 +453,81 @@
                     document.getElementById("commentContainer-"+id).innerHTML += newComment
                 }
                 commentPageObj[id] += 1
+            })
+        })
+    }
+
+
+    function showStories(id){
+        document.getElementById("stories").className = 'hide-scrollbar'
+        showStoriesImage(id)
+    }
+
+
+    let timeOutVar
+    function hideStories(){
+        document.getElementById("stories").className = 'hide'
+        clearTimeout(timeOutVar)
+    }
+    let storiesId
+    function showStoriesImage(id){
+        storiesId = id
+        clearTimeout(timeOutVar)
+        const img = document.getElementById("storiesImage-"+id).src
+        const username = document.getElementById("storiesUsername-"+id).innerText
+        const userProfilePicture = document.getElementById("storiesUserProfilePicture-"+id).src
+        
+        document.getElementById("storiesImageHere").src = img
+        document.getElementById("storiesUsernameHere").innerText = username
+        document.getElementById("storiesUserProfilePictureHere").src = userProfilePicture
+        document.getElementById("msgFromStories").placeholder = 'Replay to '+ username +'...'
+
+
+        var storiesIdList = {{storiesIdList}}
+        if(storiesIdList.indexOf(id) == 0){
+            document.getElementById("previousStories").className = 'hide'
+        }else{
+            var previousStoriesId = storiesIdList[storiesIdList.indexOf(id)-1]
+            document.getElementById("previousStories").setAttribute('onclick', 'showStoriesImage('+previousStoriesId+')')
+            document.getElementById("previousStories").className = 'hover-grey pointer'
+        }
+        const lastStoriesId = storiesIdList[storiesIdList.length - 1]
+        if(id == lastStoriesId){
+            document.getElementById("nextStories").className = 'hide'
+            clearTimeout(timeOutVar)
+        }else{
+            var nextStoriesId = storiesIdList[storiesIdList.indexOf(id)+1]
+            document.getElementById("nextStories").setAttribute('onclick', 'showStoriesImage('+nextStoriesId+')')
+            document.getElementById("nextStories").className = 'hover-grey pointer'
+            timeOutVar = setTimeout(()=>{
+                showStoriesImage(nextStoriesId)
+            }, 5000)
+        }
+        document.getElementById("width0to100").innerHTML = '<div class="width0to100"></div>'
+    }
+
+    function clearTimeoutNextStories(){
+        clearTimeout(timeOutVar)
+    }
+
+
+    function sendMsgFromStories(){
+        msgBody = document.getElementById("msgFromStories").value
+        fetch('/sendMessageFromStories/', {
+            method: 'POST',
+            body: JSON.stringify({'postId': storiesId, 'body': msgBody}),
+            headers: {
+                'Accept': 'Application/json',
+                'Content-type': 'application/json',
+                'X-CSRFToken': csrftoken
+            }
+        })
+        .then((response)=>{
+            response.json().then((result)=>{
+                if(result.response === 'sent'){
+                    document.getElementById("hideAfter2sec").innerHTML = '<span class="hideAfter2sec" style="padding: 8px 16px; border: 1px solid grey; border-radius: 25px; position: absolute; bottom: 3%; left: 40%; background-color: rgba(248, 248, 248, 0.5);">Message sent</span>'
+                    document.getElementById("msgFromStories").value = ''
+                }
             })
         })
     }

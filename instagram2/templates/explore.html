@@ -3,10 +3,10 @@
 
 {% block body %}
 
-<div class="home-margin-top mrx4">
+<div onscroll="exploreScrolling()" class="home-margin-top mrx4">
     <div class="hide-medium hide-large">
-        <div class="pdt4 pc" style="display: flex; justify-content: center;">
-            <input style="height: 24px; max-width: 400px; width: 90%; border-radius: 3px; border: 1px solid gray; background-color: rgb(255, 248, 248); text-align: center; font-family:Arial, FontAwesome;" type="text" placeholder="&#xF002; search">
+        <div class="pdt4 pdb4 pc" style="display: flex; justify-content: center;">
+            <input style="height: 24px; max-width: 500px; width: 98%; border-radius: 3px; border: 1px solid gray; background-color: rgb(255, 248, 248); text-align: center; font-family:Arial, FontAwesome;" type="text" placeholder="&#xF002; search">
             
             <div class="card-4 white hide" style="position: absolute; top: 150%; height: 400px; width: 400px; z-index: 3;">
                 <div class="pc mr8" style="height: 100%;">
@@ -47,135 +47,321 @@
         <hr>
     </div>
 
+    <span id="pasteHereExplore">
+        <div id="exploreItemContainer" style="margin: auto; width: 100%; max-width: 900px;">
+            <div style="position: relative; padding-bottom: 66.666%; cursor: pointer;">
+                <div style="top: 0; right: 0; bottom: 0; left: 0; display: flex; position: absolute;">
+                    <div class="l4 m4 s4" style="padding-bottom: 50%;">
+                        {% with posts.0 as post %}
+                        <a href={% url 'exploreMore' post.id%} id="ex1" style="padding-bottom: 100%; position: relative; display: block;">
+                            <div class="explore-item-padding" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
+                                <div style="height: 100%; width: 100%; position: relative;">
+                                    <img id="ex1-img" src="{{ post.image.url }}" height="100%" width="100%" alt="img">
+                                    <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;">
+                                        <span class="hover-opacity2-child">
+                                            <span style="display: flex;"><span id="ex1-l">{{post.totalLikes}}</span> <span style="display: block; margin-top: -4px; margin-left: 8px;"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span></span>
+                                            <span style="display: flex; margin-top: 8px;"><span id="ex1-c">{{post.totalComments}}</span> <span style="display: block; margin-top: -4px; margin-left: 8px;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M12 1c-6.628 0-12 4.573-12 10.213 0 2.39.932 4.591 2.427 6.164l-2.427 5.623 7.563-2.26c9.495 2.598 16.437-3.251 16.437-9.527 0-5.64-5.372-10.213-12-10.213z"/></svg></span></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        {% endwith %}
 
-    <div style="margin: auto; width: 100%; max-width: 900px;">
-        <div style="position: relative; padding-bottom: 66.666%;">
-            <div style="top: 0; right: 0; bottom: 0; left: 0; display: flex; position: absolute;">
-                <div class="l4 m4 s4" style="padding-bottom: 50%;">
-                    <div style="padding-bottom: 100%; position: relative;">
+                        {% with posts.1 as post %}
+                        <a id="ex2" href={% url 'exploreMore' post.id%} style="padding-bottom: 100%; display: block; position: relative;">
+                            <div class="explore-item-padding" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
+                                <div style="height: 100%; width: 100%; position: relative;">
+                                    <img id="ex2-img" src="{{ post.image.url }}" height="100%" width="100%" alt="img">
+                                    <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;">
+                                        <span class="hover-opacity2-child">
+                                            <span style="display: flex;"><span id="ex2-l">{{post.totalLikes}}</span> <span style="display: block; margin-top: -4px; margin-left: 8px;"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span></span>
+                                            <span style="display: flex; margin-top: 8px;"><span id="ex2-c">{{post.totalComments}}</span> <span style="display: block; margin-top: -4px; margin-left: 8px;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M12 1c-6.628 0-12 4.573-12 10.213 0 2.39.932 4.591 2.427 6.164l-2.427 5.623 7.563-2.26c9.495 2.598 16.437-3.251 16.437-9.527 0-5.64-5.372-10.213-12-10.213z"/></svg></span></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        {% endwith %}
+                    </div>
+                    
+                    {% with posts.2 as post %}
+                    <a id="ex3" href={% url 'exploreMore' post.id%} class="l8 m8 s8 pc" style="padding-bottom: 50%; display: block;">
                         <div class="explore-item-padding" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
                             <div style="height: 100%; width: 100%; position: relative;">
-                                <img src="{% static 'images/trk.jpg' %}" height="100%" width="100%" alt="img">
-                                <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;"><span class="hover-opacity2-child">ewbf few</span></div>
+                                <img id="ex3-img" src="{{ post.image.url }}" height="100%" width="100%" alt="img">
+                                <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;">
+                                        <span class="hover-opacity2-child">
+                                            <span style="display: flex;"><span id="ex3-l">{{post.totalLikes}}</span> <span style="display: block; margin-top: -4px; margin-left: 8px;"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span></span>
+                                            <span style="display: flex; margin-top: 8px;"><span id="ex3-c">{{post.totalComments}}</span> <span style="display: block; margin-top: -4px; margin-left: 8px;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M12 1c-6.628 0-12 4.573-12 10.213 0 2.39.932 4.591 2.427 6.164l-2.427 5.623 7.563-2.26c9.495 2.598 16.437-3.251 16.437-9.527 0-5.64-5.372-10.213-12-10.213z"/></svg></span></span>
+                                        </span>
+                                    </div>
+                                <!-- <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); height: 100%; width: 100%; color: blue; background-color: black;">hrfhhg</div> -->
                             </div>
                         </div>
-                    </div>
-                    <div style="padding-bottom: 100%; position: relative;">
+                    </a>
+                    {% endwith %}
+                </div>
+            </div>
+
+            <div style="position: relative; padding-bottom: 33.333%;">
+                <div class="" style="top: 0; right: 0; bottom: 0; left: 0; display: flex; position: absolute;">
+                    {% with posts.3 as post %}
+                    <a id="ex4" href={% url 'exploreMore' post.id%} class="s4 m4 l4 pc" style="padding-bottom: calc(33.333%-32px); display: block;">
                         <div class="explore-item-padding" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
                             <div style="height: 100%; width: 100%; position: relative;">
-                                <img src="{% static 'images/trk.jpg' %}" height="100%" width="100%" alt="img">
-                                <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;"><span class="hover-opacity2-child">ewbf few</span></div>
+                                <img id="ex4-img" src="{{ post.image.url }}" height="100%" width="100%" alt="img">
+                                <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;">
+                                        <span class="hover-opacity2-child">
+                                            <span style="display: flex;"><span id="ex4-l">{{post.totalLikes}}</span> <span style="display: block; margin-top: -4px; margin-left: 8px;"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span></span>
+                                            <span style="display: flex; margin-top: 8px;"><span id="ex4-c">{{post.totalComments}}</span> <span style="display: block; margin-top: -4px; margin-left: 8px;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M12 1c-6.628 0-12 4.573-12 10.213 0 2.39.932 4.591 2.427 6.164l-2.427 5.623 7.563-2.26c9.495 2.598 16.437-3.251 16.437-9.527 0-5.64-5.372-10.213-12-10.213z"/></svg></span></span>
+                                        </span>
+                                    </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="l8 m8 s8 pc" style="padding-bottom: 50%;">
-                    <div class="explore-item-padding" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
-                        <div style="height: 100%; width: 100%; position: relative;">
-                            <img src="{% static 'images/trk.jpg' %}" height="100%" width="100%" alt="img">
-                            <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;"><span class="hover-opacity2-child">ewbf few</span></div>
-                            <!-- <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); height: 100%; width: 100%; color: blue; background-color: black;">hrfhhg</div> -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    </a>
+                    {% endwith %}
 
-        <div style="position: relative; padding-bottom: 33.333%;">
-            <div class="" style="top: 0; right: 0; bottom: 0; left: 0; display: flex; position: absolute;">
-                <div class="s4 m4 l4 pc" style="padding-bottom: calc(33.333%-32px);">
-                    <div class="explore-item-padding" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
-                        <div style="height: 100%; width: 100%; position: relative;">
-                            <img src="{% static 'images/trk.jpg' %}" height="100%" width="100%" alt="img">
-                            <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;"><span class="hover-opacity2-child">ewbf few</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="s4 m4 l4 pc" style="padding-bottom: calc(33.333%-32px);">
-                    <div class="explore-item-padding" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
-                        <div style="height: 100%; width: 100%; position: relative;">
-                            <img src="{% static 'images/trk.jpg' %}" height="100%" width="100%" alt="img">
-                            <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;"><span class="hover-opacity2-child">ewbf few</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="s4 m4 l4 pc" style="padding-bottom: calc(33.333%-32px);">
-                    <div class="explore-item-padding" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
-                        <div style="height: 100%; width: 100%; position: relative;">
-                            <img src="{% static 'images/trk.jpg' %}" height="100%" width="100%" alt="img">
-                            <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;"><span class="hover-opacity2-child">ewbf few</span></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div style="position: relative; padding-bottom: 66.666%;">
-            <div style="top: 0; right: 0; bottom: 0; left: 0; display: flex; position: absolute;">
-                <div class="l8 m8 s8 pc" style="padding-bottom: 50%;">
-                    <div class="explore-item-padding" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
-                        <div style="height: 100%; width: 100%; position: relative;">
-                            <img src="{% static 'images/trk.jpg' %}" height="100%" width="100%" alt="img">
-                            <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;"><span class="hover-opacity2-child">ewbf few</span></div>
-                            <!-- <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); height: 100%; width: 100%; color: blue; background-color: black;">hrfhhg</div> -->
-                        </div>
-                    </div>
-                </div>
-                <div class="l4 m4 s4" style="padding-bottom: 50%;">
-                    <div style="padding-bottom: 100%; position: relative;">
+                    {% with posts.4 as post %}
+                    <a id="ex5" href={% url 'exploreMore' post.id%} class="s4 m4 l4 pc" style="display: block; padding-bottom: calc(33.333%-32px);">
                         <div class="explore-item-padding" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
                             <div style="height: 100%; width: 100%; position: relative;">
-                                <img src="{% static 'images/trk.jpg' %}" height="100%" width="100%" alt="img">
-                                <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;"><span class="hover-opacity2-child">ewbf few</span></div>
+                                <img id="ex5-img" src="{{ post.image.url }}" height="100%" width="100%" alt="img">
+                                <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;">
+                                        <span class="hover-opacity2-child">
+                                            <span style="display: flex;"><span id="ex5-l">{{post.totalLikes}}</span> <span style="display: block; margin-top: -4px; margin-left: 8px;"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span></span>
+                                            <span style="display: flex; margin-top: 8px;"><span id="ex5-c">{{post.totalComments}}</span> <span style="display: block; margin-top: -4px; margin-left: 8px;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M12 1c-6.628 0-12 4.573-12 10.213 0 2.39.932 4.591 2.427 6.164l-2.427 5.623 7.563-2.26c9.495 2.598 16.437-3.251 16.437-9.527 0-5.64-5.372-10.213-12-10.213z"/></svg></span></span>
+                                        </span>
+                                    </div>
                             </div>
                         </div>
-                    </div>
-                    <div style="padding-bottom: 100%; position: relative;">
+                    </a>
+                    {% endwith %}
+
+                    {% with posts.5 as post %}
+                    <a id="ex6" href={% url 'exploreMore' post.id%} class="s4 m4 l4 pc" style="padding-bottom: calc(33.333%-32px); display: block;">
                         <div class="explore-item-padding" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
                             <div style="height: 100%; width: 100%; position: relative;">
-                                <img src="{% static 'images/trk.jpg' %}" height="100%" width="100%" alt="img">
-                                <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;"><span class="hover-opacity2-child">ewbf few</span></div>
+                                <img id="ex6-img" src="{{ post.image.url }}" height="100%" width="100%" alt="img">
+                                <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;">
+                                        <span class="hover-opacity2-child">
+                                            <span style="display: flex;"><span id="ex6-l">{{post.totalLikes}}</span> <span style="display: block; margin-top: -4px; margin-left: 8px;"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span></span>
+                                            <span style="display: flex; margin-top: 8px;"><span id="ex6-c">{{post.totalComments}}</span> <span style="display: block; margin-top: -4px; margin-left: 8px;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M12 1c-6.628 0-12 4.573-12 10.213 0 2.39.932 4.591 2.427 6.164l-2.427 5.623 7.563-2.26c9.495 2.598 16.437-3.251 16.437-9.527 0-5.64-5.372-10.213-12-10.213z"/></svg></span></span>
+                                        </span>
+                                    </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-
-        <div style="position: relative; padding-bottom: 33.333%;">
-            <div class="" style="top: 0; right: 0; bottom: 0; left: 0; display: flex; position: absolute;">
-                <div class="s4 m4 l4 pc" style="padding-bottom: calc(33.333%-32px);">
-                    <div class="explore-item-padding" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
-                        <div style="height: 100%; width: 100%; position: relative;">
-                            <img src="{% static 'images/trk.jpg' %}" height="100%" width="100%" alt="img">
-                            <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;"><span class="hover-opacity2-child">ewbf few</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="s4 m4 l4 pc" style="padding-bottom: calc(33.333%-32px);">
-                    <div class="explore-item-padding" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
-                        <div style="height: 100%; width: 100%; position: relative;">
-                            <img src="{% static 'images/trk.jpg' %}" height="100%" width="100%" alt="img">
-                            <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;"><span class="hover-opacity2-child">ewbf few</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="s4 m4 l4 pc" style="padding-bottom: calc(33.333%-32px);">
-                    <div class="explore-item-padding" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
-                        <div style="height: 100%; width: 100%; position: relative;">
-                            <img src="{% static 'images/trk.jpg' %}" height="100%" width="100%" alt="img">
-                            <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;"><span class="hover-opacity2-child">ewbf few</span></div>
-                        </div>
-                    </div>
+                    </a>
+                    {% endwith %}
                 </div>
             </div>
-        </div>
 
-    </div>
+            <div style="position: relative; padding-bottom: 66.666%;">
+                <div style="top: 0; right: 0; bottom: 0; left: 0; display: flex; position: absolute;">
+                    {% with posts.6 as post %}
+                    <a id="ex7" href={% url 'exploreMore' post.id%} class="l8 m8 s8 pc" style="padding-bottom: 50%; display: block;">
+                        <div class="explore-item-padding" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
+                            <div style="height: 100%; width: 100%; position: relative;">
+                                <img id="ex7-img" src="{{ post.image.url }}" height="100%" width="100%" alt="img">
+                                <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;">
+                                        <span class="hover-opacity2-child">
+                                            <span style="display: flex;"><span id="ex7-l">{{post.totalLikes}}</span> <span style="display: block; margin-top: -4px; margin-left: 8px;"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span></span>
+                                            <span style="display: flex; margin-top: 8px;"><span id="ex7-c">{{post.totalComments}}</span> <span style="display: block; margin-top: -4px; margin-left: 8px;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M12 1c-6.628 0-12 4.573-12 10.213 0 2.39.932 4.591 2.427 6.164l-2.427 5.623 7.563-2.26c9.495 2.598 16.437-3.251 16.437-9.527 0-5.64-5.372-10.213-12-10.213z"/></svg></span></span>
+                                        </span>
+                                    </div>
+                                <!-- <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); height: 100%; width: 100%; color: blue; background-color: black;">hrfhhg</div> -->
+                            </div>
+                        </div>
+                    </a>
+                    {% endwith %}
+
+                    <div class="l4 m4 s4" style="padding-bottom: 50%;">
+                        {% with posts.7 as post %}
+                        <a id="ex8" href={% url 'exploreMore' post.id%} style="padding-bottom: 100%; position: relative; display: block;">
+                            <div class="explore-item-padding" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
+                                <div style="height: 100%; width: 100%; position: relative;">
+                                    <img id="ex8-img" src="{{ post.image.url }}" height="100%" width="100%" alt="img">
+                                    <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;">
+                                        <span class="hover-opacity2-child">
+                                            <span style="display: flex;"><span id="ex8-l">{{post.totalLikes}}</span> <span style="display: block; margin-top: -4px; margin-left: 8px;"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span></span>
+                                            <span style="display: flex; margin-top: 8px;"><span id="ex8-c">{{post.totalComments}}</span> <span style="display: block; margin-top: -4px; margin-left: 8px;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M12 1c-6.628 0-12 4.573-12 10.213 0 2.39.932 4.591 2.427 6.164l-2.427 5.623 7.563-2.26c9.495 2.598 16.437-3.251 16.437-9.527 0-5.64-5.372-10.213-12-10.213z"/></svg></span></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        {% endwith %}
+                        {% with posts.8 as post %}
+                        <a id="ex9" href={% url 'exploreMore' post.id%} style="padding-bottom: 100%; position: relative; display: block;">
+                            <div class="explore-item-padding" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
+                                <div style="height: 100%; width: 100%; position: relative;">
+                                    <img id="ex9-img" src="{{ post.image.url }}" height="100%" width="100%" alt="img">
+                                    <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;">
+                                        <span class="hover-opacity2-child">
+                                            <span style="display: flex;"><span id="ex9-l">{{post.totalLikes}}</span> <span style="display: block; margin-top: -4px; margin-left: 8px;"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span></span>
+                                            <span style="display: flex; margin-top: 8px;"><span id="ex9-c">{{post.totalComments}}</span> <span style="display: block; margin-top: -4px; margin-left: 8px;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M12 1c-6.628 0-12 4.573-12 10.213 0 2.39.932 4.591 2.427 6.164l-2.427 5.623 7.563-2.26c9.495 2.598 16.437-3.251 16.437-9.527 0-5.64-5.372-10.213-12-10.213z"/></svg></span></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        {% endwith %}
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div style="position: relative; padding-bottom: 33.333%;">
+                <div class="" style="top: 0; right: 0; bottom: 0; left: 0; display: flex; position: absolute;">
+                    {% with posts.9 as post %}
+                    <a id="ex10" href={% url 'exploreMore' post.id%} class="s4 m4 l4 pc" style="padding-bottom: calc(33.333%-32px);">
+                        <div class="explore-item-padding" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
+                            <div style="height: 100%; width: 100%; position: relative;">
+                                <img id="ex10-img" src="{{ post.image.url }}" height="100%" width="100%" alt="img">
+                                <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;">
+                                        <span class="hover-opacity2-child">
+                                            <span style="display: flex;"><span id="ex10-l">{{post.totalLikes}}</span> <span style="display: block; margin-top: -4px; margin-left: 8px;"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span></span>
+                                            <span style="display: flex; margin-top: 8px;"><span id="ex10-c">{{post.totalComments}}</span> <span style="display: block; margin-top: -4px; margin-left: 8px;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M12 1c-6.628 0-12 4.573-12 10.213 0 2.39.932 4.591 2.427 6.164l-2.427 5.623 7.563-2.26c9.495 2.598 16.437-3.251 16.437-9.527 0-5.64-5.372-10.213-12-10.213z"/></svg></span></span>
+                                        </span>
+                                    </div>
+                            </div>
+                        </div>
+                    </a>
+                    {% endwith %}
+
+                    {% with posts.10 as post %}
+                    <a id="ex11" href={% url 'exploreMore' post.id%} class="s4 m4 l4 pc" style="padding-bottom: calc(33.333%-32px);">
+                        <div class="explore-item-padding" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
+                            <div style="height: 100%; width: 100%; position: relative;">
+                                <img id="ex11-img" src="{{ post.image.url }}" height="100%" width="100%" alt="img">
+                                <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;">
+                                        <span class="hover-opacity2-child">
+                                            <span style="display: flex;"><span id="ex11-l">{{post.totalLikes}}</span> <span style="display: block; margin-top: -4px; margin-left: 8px;"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span></span>
+                                            <span style="display: flex; margin-top: 8px;"><span id="ex11-c">{{post.totalComments}}</span> <span style="display: block; margin-top: -4px; margin-left: 8px;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M12 1c-6.628 0-12 4.573-12 10.213 0 2.39.932 4.591 2.427 6.164l-2.427 5.623 7.563-2.26c9.495 2.598 16.437-3.251 16.437-9.527 0-5.64-5.372-10.213-12-10.213z"/></svg></span></span>
+                                        </span>
+                                    </div>
+                            </div>
+                        </div>
+                    </a>
+                    {% endwith %}
+
+                    {% with posts.11 as post %}
+                    <a id="ex12" href={% url 'exploreMore' post.id%} class="s4 m4 l4 pc" style="padding-bottom: calc(33.333%-32px);">
+                        <div class="explore-item-padding" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
+                            <div style="height: 100%; width: 100%; position: relative;">
+                                <img id="ex12-img" src="{{ post.image.url }}" height="100%" width="100%" alt="img">
+                                <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;">
+                                        <span class="hover-opacity2-child">
+                                            <span style="display: flex;"><span id="ex12-l">{{post.totalLikes}}</span> <span style="display: block; margin-top: -4px; margin-left: 8px;"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span></span>
+                                            <span style="display: flex; margin-top: 8px;"><span id="ex12-c">{{post.totalComments}}</span> <span style="display: block; margin-top: -4px; margin-left: 8px;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M12 1c-6.628 0-12 4.573-12 10.213 0 2.39.932 4.591 2.427 6.164l-2.427 5.623 7.563-2.26c9.495 2.598 16.437-3.251 16.437-9.527 0-5.64-5.372-10.213-12-10.213z"/></svg></span></span>
+                                        </span>
+                                    </div>
+                            </div>
+                        </div>
+                    </a>
+                    {% endwith %}
+                </div>
+            </div>
+
+        </div>
+    </span>
 </div>
+<br/>
+<p id="exploreSpining" style="text-align: center;"><svg class="spin" xmlns="http://www.w3.org/2000/svg" height="44px" viewBox="0 0 24 24" width="44px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"/></svg></p>
 <br/><br/><br/>
-<br/><br/><br/>
-<br/><br/><br/>
-htr
+
+<script>
+    var moreExploreItem = true
+    var exploreBottom = false
+    function exploreScrolling(){
+        if((window.innerHeight + window.pageYOffset +200) >= document.body.offsetHeight){
+            exploreBottom = true
+        }
+        if(exploreBottom && moreExploreItem){
+            getMoreExploreItem()
+        }
+    }
+
+    function getMoreExploreItem(){
+        moreExploreItem = false
+        fetch('/explore/',{
+            method: 'POST',
+            body: JSON.stringify({'exploreItemId': [1,2]}),
+            headers: {
+                'Accept': 'application/json, text/plain',
+                'Contentt-type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            }
+        })
+        .then((response)=>{
+            response.json().then((result)=>{
+                var exploreItemContainerCln = document.getElementById("exploreItemContainer").cloneNode(true)
+                
+                exploreItemContainerCln.querySelector('#ex1-img').src = result.posts[0].image
+                exploreItemContainerCln.querySelector('#ex2-img').src = result.posts[1].image
+                exploreItemContainerCln.querySelector('#ex3-img').src = result.posts[2].image
+                exploreItemContainerCln.querySelector('#ex4-img').src = result.posts[3].image
+                exploreItemContainerCln.querySelector('#ex5-img').src = result.posts[4].image
+                exploreItemContainerCln.querySelector('#ex6-img').src = result.posts[5].image
+                exploreItemContainerCln.querySelector('#ex7-img').src = result.posts[6].image
+                exploreItemContainerCln.querySelector('#ex8-img').src = result.posts[7].image
+                exploreItemContainerCln.querySelector('#ex9-img').src = result.posts[8].image
+                exploreItemContainerCln.querySelector('#ex10-img').src = result.posts[9].image
+                exploreItemContainerCln.querySelector('#ex11-img').src = result.posts[10].image
+                exploreItemContainerCln.querySelector('#ex12-img').src = result.posts[11].image
+
+                exploreItemContainerCln.querySelector('#ex1-l').innerText = result.posts[0].totalLikes
+                exploreItemContainerCln.querySelector('#ex2-l').innerText = result.posts[1].totalLikes
+                exploreItemContainerCln.querySelector('#ex3-l').innerText = result.posts[2].totalLikes
+                exploreItemContainerCln.querySelector('#ex4-l').innerText = result.posts[3].totalLikes
+                exploreItemContainerCln.querySelector('#ex5-l').innerText = result.posts[4].totalLikes
+                exploreItemContainerCln.querySelector('#ex6-l').innerText = result.posts[5].totalLikes
+                exploreItemContainerCln.querySelector('#ex7-l').innerText = result.posts[6].totalLikes
+                exploreItemContainerCln.querySelector('#ex8-l').innerText = result.posts[7].totalLikes
+                exploreItemContainerCln.querySelector('#ex9-l').innerText = result.posts[8].totalLikes
+                exploreItemContainerCln.querySelector('#ex10-l').innerText = result.posts[9].totalLikes
+                exploreItemContainerCln.querySelector('#ex11-l').innerText = result.posts[10].totalLikes
+                exploreItemContainerCln.querySelector('#ex12-l').innerText = result.posts[11].totalLikes
+
+                exploreItemContainerCln.querySelector('#ex1-c').innerText = result.posts[0].totalComments
+                exploreItemContainerCln.querySelector('#ex2-c').innerText = result.posts[1].totalComments
+                exploreItemContainerCln.querySelector('#ex3-c').innerText = result.posts[2].totalComments
+                exploreItemContainerCln.querySelector('#ex4-c').innerText = result.posts[3].totalComments
+                exploreItemContainerCln.querySelector('#ex5-c').innerText = result.posts[4].totalComments
+                exploreItemContainerCln.querySelector('#ex6-c').innerText = result.posts[5].totalComments
+                exploreItemContainerCln.querySelector('#ex7-c').innerText = result.posts[6].totalComments
+                exploreItemContainerCln.querySelector('#ex8-c').innerText = result.posts[7].totalComments
+                exploreItemContainerCln.querySelector('#ex9-c').innerText = result.posts[8].totalComments
+                exploreItemContainerCln.querySelector('#ex10-c').innerText = result.posts[9].totalComments
+                exploreItemContainerCln.querySelector('#ex11-c').innerText = result.posts[10].totalComments
+                exploreItemContainerCln.querySelector('#ex12-c').innerText = result.posts[11].totalComments
+
+                exploreItemContainerCln.querySelector('#ex1').href = '/exploreMore/' + result.posts[0].id
+                exploreItemContainerCln.querySelector('#ex2').href = '/exploreMore/' + result.posts[1].id
+                exploreItemContainerCln.querySelector('#ex3').href = '/exploreMore/' + result.posts[2].id
+                exploreItemContainerCln.querySelector('#ex4').href = '/exploreMore/' + result.posts[3].id
+                exploreItemContainerCln.querySelector('#ex5').href = '/exploreMore/' + result.posts[4].id
+                exploreItemContainerCln.querySelector('#ex6').href = '/exploreMore/' + result.posts[5].id
+                exploreItemContainerCln.querySelector('#ex7').href = '/exploreMore/' + result.posts[6].id
+                exploreItemContainerCln.querySelector('#ex8').href = '/exploreMore/' + result.posts[7].id
+                exploreItemContainerCln.querySelector('#ex9').href = '/exploreMore/' + result.posts[8].id
+                exploreItemContainerCln.querySelector('#ex10').href = '/exploreMore/' + result.posts[9].id
+                exploreItemContainerCln.querySelector('#ex11').href = '/exploreMore/' + result.posts[10].id
+                exploreItemContainerCln.querySelector('#ex12').href = '/exploreMore/' + result.posts[11].id
+
+
+                document.getElementById("exploreItemContainer").appendChild(exploreItemContainerCln)
+
+                if(result.noMoreExplorePost){
+                    moreExploreItem = false
+                    document.getElementById("exploreSpining").innerHTML = 'No more post availabel.'
+                }else{
+                    moreExploreItem = true
+                }
+                exploreBottom = false
+            })
+        })
+    }
+</script>
+
 {% endblock %}

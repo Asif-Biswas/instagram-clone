@@ -1,0 +1,357 @@
+{% extends 'navbar.html' %}
+{% load static %}
+
+{% block body %}
+<div class="home-margin-top" style="margin-left: 2px; margin-right: 2px;">
+    <div class="flex" style="margin-top: -16px;">
+        <div class="l8 m12 s12">
+            <div id="postContainer">
+                <div>
+                    <br/>
+                    <div class="border border-light-gray white" style="max-width: 600px; margin: auto;">
+                        <div class="space-between mrx16 mrt16">
+                            <div class="flex">
+                                <img  style="width: 40px; height: 40px;border-radius: 50%;" src="{{ p.userProfilePicture }}"/>
+                                <div>
+                                    <p style="margin: 0 0 0 8px; font-weight: bold; font-size: 18px;">{{p.user.first_name}} {{p.user.last_name}}</p>
+                                    <p style="opacity: .4; font-size: small; margin-top: 0px; margin-left: 8px;">{{p.date|timesince}} ago</p>
+                                </div>
+                            </div>
+                            <div style="margin-top: -8px;">...</div>
+                        </div>
+
+                        <img src="{{ p.image.url }}" width="100%"/>
+
+                        <div class="space-between mrx16 mry8">
+                            <div class="flex">
+                                {% if request.user in p.liked_by.all %}
+                                <span onclick="EXliked({{p.id}})" id="EXliked-{{p.id}}" class="pointer"><svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 0 24 24" width="28px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span>
+                                <span onclick="EXlike({{p.id}})" id="EXlike-{{p.id}}" class="pointer hide"><svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 0 24 24" width="28px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z"/></svg></span>
+                                {% else %}
+                                <span onclick="EXliked({{p.id}})" id="EXliked-{{p.id}}" class="pointer hide"><svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 0 24 24" width="28px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span>
+                                <span onclick="EXlike({{p.id}})" id="EXlike-{{p.id}}" class="pointer"><svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 0 24 24" width="28px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z"/></svg></span>
+                                {% endif %}
+                                <span onclick="scrollToBottom()" class="mrl16 pointer"><svg fill="#000000" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 50 50" width="28px" height="28px"><path d="M 25 4.0625 C 12.414063 4.0625 2.0625 12.925781 2.0625 24 C 2.0625 30.425781 5.625 36.09375 11 39.71875 C 10.992188 39.933594 11 40.265625 10.71875 41.3125 C 10.371094 42.605469 9.683594 44.4375 8.25 46.46875 L 7.21875 47.90625 L 9 47.9375 C 15.175781 47.964844 18.753906 43.90625 19.3125 43.25 C 21.136719 43.65625 23.035156 43.9375 25 43.9375 C 37.582031 43.9375 47.9375 35.074219 47.9375 24 C 47.9375 12.925781 37.582031 4.0625 25 4.0625 Z M 25 5.9375 C 36.714844 5.9375 46.0625 14.089844 46.0625 24 C 46.0625 33.910156 36.714844 42.0625 25 42.0625 C 22.996094 42.0625 21.050781 41.820313 19.21875 41.375 L 18.65625 41.25 L 18.28125 41.71875 C 18.28125 41.71875 15.390625 44.976563 10.78125 45.75 C 11.613281 44.257813 12.246094 42.871094 12.53125 41.8125 C 12.929688 40.332031 12.9375 39.3125 12.9375 39.3125 L 12.9375 38.8125 L 12.5 38.53125 C 7.273438 35.21875 3.9375 29.941406 3.9375 24 C 3.9375 14.089844 13.28125 5.9375 25 5.9375 Z"/></svg></span>
+                                <span class="mrl16 pointer"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path d="M15.379,19.1403 L12.108,12.5993 L19.467,5.2413 L15.379,19.1403 Z M4.86,8.6213 L18.76,4.5343 L11.401,11.8923 L4.86,8.6213 Z M3.359,8.0213 C2.923,8.1493 2.87,8.7443 3.276,8.9483 L11.128,12.8733 L15.053,20.7243 C15.256,21.1303 15.852,21.0773 15.98,20.6413 L20.98,3.6413 C21.091,3.2623 20.739,2.9093 20.359,3.0213 L3.359,8.0213 Z"/></svg></span>
+                            </div>
+                            <div>
+                                <span class="pointer"><svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 0 24 24" width="28px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2zm0 15l-5-2.18L7 18V5h10v13z"/></svg></span>
+                            </div>
+                        </div>
+                        <div id="EXcommentContainer-{{p.id}}" class="mrx16">
+                            <p style="margin-top: 2px;"><span id="EXtotalLikes-{{p.id}}">{{ p.liked_by.count }}</span> likes</p>
+                            <p style="margin-top: -8px;"><span style="font-weight: bold;">{{p.user.first_name}} {{p.user.last_name}} </span>{{ p.caption }}</p>
+                            {% if p.firstComment %}
+                            <p onclick="EXgetMoreComments({{p.id}})" class="pointer" style="font-size: 18px; opacity: .6; margin-top: -8px;">View all {{ p.totalComments }} comments</p>
+                            
+                            <div class="space-between" style="margin-top: -30px;">
+                                <p style="font-size: 14px;"><span style="font-weight: bold;">{{ p.firstComment.user.first_name}} </span>{{ p.firstComment.body}}</p>
+                                <p class="pointer"><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z"/></svg></p>
+                            </div>
+                            {% endif %}
+                            {% if p.secondComment %}
+                            <div class="space-between" style="margin-top: -30px;">
+                                <p style="font-size: 14px;"><span style="font-weight: bold;">{{ p.secondComment.user.first_name}} </span>{{ p.secondComment.body}}</p>
+                                <p class="pointer"><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z"/></svg></p>
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="border-top border-light-gray">
+                            <div class="space-between" style="height: 44px;">
+                                <div class="mr8">
+                                    <img style="width: 35px; height: 35px; border-radius: 50%;" src="{{ aboutMe.profilePicture.url }}"/>
+                                </div>
+                                <div style="width: 100%; margin-right: 8px;">
+                                    <input id="EXcomment-{{p.id}}" style="width: 100%; border: none; height: 25px; font-size: 15px;" type="text" placeholder="Add a comment..."/>
+                                </div>
+                                <div class="mr8">
+                                    <p onclick="EXaddComment({{p.id}})" class="hover-blue text-blue pdx8 pdy8 pointer">Post</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="EXpostContainer"></div>
+            <div>
+                <br/>
+                <div class="border border-light-gray white" style="max-width: 600px; margin: auto;">
+                    <div class="space-between mrx16 mrt16">
+                        <div class="flex">
+                            <div style="height: 40px; width: 40px; border-radius: 50%; background-color: gray;"></div>
+                            <div>
+                                <p style="margin: 2px 0 0 8px; font-weight: bold; font-size: 18px; height: 16px; width: 140px; background-color: gray;"></p>
+                                <p style="opacity: .4; font-size: small; margin-top: 10px; margin-left: 8px; height: 10px; width: 100px; background-color: lightgray;"></p>
+                            </div>
+                        </div>
+                        <div style="margin-top: -8px; height: 8px; width: 20px; background-color: lightgray;"></div>
+                    </div>
+
+                    <div style="width: 100%; padding-bottom: 60%; background-color: lightgray;"></div>
+
+                    <div style="width: 50%; height: 16px; background-color: lightgray; margin-top: 16px; margin-left: 8px;"></div>
+                    <div style="width: 30%; height: 10px; background-color: lightgray; margin-top: 10px; margin-left: 8px; margin-bottom: 16px;"></div>
+                    
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <div class="mrl8 l4 hide-medium hide-small pc mrt16">
+        <div style="position: fixed;">
+            <div>
+
+                <div class="space-between" style="width: 300px;">
+                    <div class="flex">
+                        <img style="height: 64px; width: 64px; border-radius: 50%;" src="{{aboutMe.profilePicture.url}}" alt="your profile picture">
+                        <div style="margin: auto 12px;">
+                            <div>{{request.user.username}}</div>
+                            <div style="opacity: .6;">{{request.user.first_name}}</div>
+                        </div>
+                    </div>
+                    <div class="centery text-blue pointer">Switch</div>
+                </div>
+
+                <div class="space-between" style="width: 300px;">
+                    <p style="opacity: .6; font-weight: bold;">Suggestions For You</p>
+                    <p>See All</p>
+                </div>
+
+
+                {% for s in randomUser %}
+                    <div class="space-between mry8" style="width: 300px;">
+                        <div class="flex">
+                            <div style="width: 40px;">
+                                <img style="height: 40px; width: 40px; border-radius: 50%;" src="{{s.profilePicture}}" alt="user">
+                            </div>
+                            <div style="margin: auto 12px;">
+                                <div>{{s.username}}</div>
+                                {% if s.randomFollower == 'New to Instagram' %}
+                                    <div style="opacity: .6; font-size: small;">New to Instagram</div>
+                                {% elif s.randomFollower == 'Follows you' %}
+                                    <div style="opacity: .6; font-size: small;">Follows you</div>
+                                {% else %}
+                                    <div style="opacity: .6; font-size: small;">Followed by {{s.randomFollower}}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="centery text-blue pointer mrl4">Follow</div>
+                    </div>
+                {% endfor %}
+
+                <div style="opacity: .2; display: inline-block; font-size: 12px; width: 300px;">
+                    <li style="float: left; margin-left: 8px; cursor: pointer;">About</li>
+                    <li style="float: left; margin-left: 8px; cursor: pointer;">Help</li>
+                    <li style="float: left; margin-left: 8px; cursor: pointer;">Press</li>
+                    <li style="float: left; margin-left: 8px; cursor: pointer;">API</li>
+                    <li style="float: left; margin-left: 8px; cursor: pointer;">Jobs</li>
+                    <li style="float: left; margin-left: 8px; cursor: pointer;">Privacy</li>
+                    <li style="float: left; margin-left: 8px; cursor: pointer;">Terms</li>
+                    <li style="float: left; margin-left: 8px; cursor: pointer;">Locations</li>
+                    <li style="float: left; margin-left: 8px; cursor: pointer;">Top</li>
+                    <li style="float: left; margin-left: 8px; cursor: pointer;">Accounts</li>
+                    <li style="float: left; margin-left: 8px; cursor: pointer;">Hashtags</li>
+                    <li style="float: left; margin-left: 8px; cursor: pointer;">Languages</li>
+                </div>
+                <p style="opacity: .2; width: 300px; font-size: small; margin-left: 8px;">© 2021 INSTAGRAM CLONE FROM ASIF</p>
+            </div>
+        </div>                
+        </div>
+    </div>
+
+
+
+
+<br/><br/>
+</div>
+
+<script>
+    let EXpostId = []
+    let EXcommentPageObj = {}
+    function EXgetMoreComments(id){
+        if(EXcommentPageObj[id] == undefined){
+            EXcommentPageObj[id] = 1
+        }
+        
+        const url = '/getMoreComments/'+id+'/'
+        fetch(url,{
+            method: 'POST',
+            body: JSON.stringify({page: EXcommentPageObj[id]}),
+            headers: {
+                'Accept': 'Application/json',
+                'Content-type': 'application/json',
+                'X-CSRFToken': csrftoken
+            }
+        })
+        .then((response)=>{
+            response.json().then((result)=>{
+                const comments = result.response
+                for (let index = 0; index < comments.length; index++) {
+                    const element = comments[index];
+                    const newComment = '<div class="space-between" style="margin-top: -30px;"><p style="font-size: 14px;"><span style="font-weight: bold;">'+element.userfullname+' </span>'+element.body+'</p><p><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z"/></svg></p></div>'
+                    document.getElementById("EXcommentContainer-"+id).innerHTML += newComment
+                }
+                EXcommentPageObj[id] += 1
+            })
+        })
+    }
+
+    function EXaddComment(id){
+        const comment = document.getElementById("EXcomment-"+id).value
+        const url = '/addComment/'+id+'/'
+        fetch(url,{
+            method: 'POST',
+            body: JSON.stringify({body: comment}),
+            headers: {
+                'Accept': 'Application/json',
+                'Content-type': 'application/json',
+                'X-CSRFToken': csrftoken
+            }
+        })
+        .then((response)=>{
+            response.json().then((result)=>{
+                if(result.response === 'ok'){
+                    document.getElementById("EXcomment-"+id).value = ''
+                    const newComment = '<div class="space-between" style="margin-top: -30px;"><p style="font-size: 14px;"><span style="font-weight: bold;">{{request.user.first_name}} </span>'+comment+'</p><p><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z"/></svg></p></div>'
+                    document.getElementById("EXcommentContainer-"+id).innerHTML += newComment
+                }
+            })
+        })
+    }
+
+    function EXlike(id){
+        const url = '/likePost/'+id+'/'
+        fetch(url,{
+            method: 'POST',
+            headers: {
+                'Accept': 'Application/json',
+                'Content-type': 'application/json',
+                'X-CSRFToken': csrftoken
+            }
+        })
+        .then((response)=>{
+            response.json().then((result)=>{
+                if(result.response === 'liked'){
+                    document.getElementById("EXlike-"+id).className = 'hide'
+                    document.getElementById("EXliked-"+id).className = 'pointer'
+                    var tl = parseInt(document.getElementById("EXtotalLikes-"+id).innerText) + 1
+                    document.getElementById("EXtotalLikes-"+id).innerText = tl
+                }
+            })
+        })
+        
+        
+    }
+    function EXliked(id){
+        const url = '/cancelLikePost/'+id+'/'
+        fetch(url,{
+            method: 'POST',
+            headers: {
+                'Accept': 'Application/json',
+                'Content-type': 'application/json',
+                'X-CSRFToken': csrftoken
+            }
+        })
+        .then((response)=>{
+            response.json().then((result)=>{
+                if(result.response === 'likeCanceled'){
+                    document.getElementById("EXlike-"+id).className = 'pointer'
+                    document.getElementById("EXliked-"+id).className = 'hide'
+                    var tl = parseInt(document.getElementById("EXtotalLikes-"+id).innerText) - 1
+                    document.getElementById("EXtotalLikes-"+id).innerText = tl
+                }
+            })
+        })
+        
+    }
+
+    var EXbottom = false
+    var EXmoreData = true
+    var EXstartBottom = false
+    function exploreMoreScrolling(){
+        if((window.innerHeight + window.pageYOffset +400) >= document.body.offsetHeight){
+            EXbottom = true
+        }
+        if(EXbottom && EXmoreData){
+            EXgetMorePost()
+            
+            EXmoreData = false
+        }
+        
+    }
+
+    EXpostId.push({{p.id}})
+
+    function EXgetMorePost(){
+
+        fetch('/getMoreUserPost/',{
+            method: 'POST',
+            body: JSON.stringify({'postId': EXpostId}),
+            headers: {
+                'Accept': 'application/json, text/plain',
+                'Contentt-type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            }
+        })
+        .then((response)=>{
+            response.json().then((result)=>{
+                post = result.response
+                for (let index = 0; index < post.length; index++) {
+                    const p = post[index];
+                    const p1 = '<div><br/><div class="border border-light-gray white" style="max-width: 600px; margin: auto;"><div class="space-between mrx16 mrt16"><div class="flex">'
+                    const userpp = '<img  style="width: 40px; height: 40px; border-radius: 50%; border: 1px solid lightgray;" src="'+p.userProfilePricture+'"/>'
+                    const userfullname = '<div><p style="margin: 0 0 0 8px; font-weight: bold; font-size: 18px;">'+p.userfullname+'</p><p style="opacity: .4; font-size: small; margin-top: 0px; margin-left: 8px;">1h ago</p></div></div><div style="margin-top: -8px;">...</div></div>'
+                    const image = '<img src='+p.image+' width="100%"/>'
+                    if(p['isLiked'] === true){
+                        var liked = '<span onclick="EXliked('+p.id+')" id="EXliked-'+p.id+'" class="pointer"><svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 0 24 24" width="28px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span><span onclick="EXlike('+p.id+')" id="EXlike-'+p.id+'" class="hide pointer"><svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 0 24 24" width="28px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z"/></svg></span>'
+                    }else{
+                        liked = '<span onclick="EXlike('+p.id+')" id="EXlike-'+p.id+'" class="pointer"><svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 0 24 24" width="28px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z"/></svg></span><span onclick="EXliked('+p.id+')" id="EXliked-'+p.id+'" class="hide pointer"><svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 0 24 24" width="28px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span>'
+                    }
+                    const like = '<div class="space-between mrx16 mry8"><div class="flex">' + liked
+                    const comment = '<span onclick="scrollToBottom()" class="mrl16"><svg fill="#000000" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 50 50" width="28px" height="28px"><path d="M 25 4.0625 C 12.414063 4.0625 2.0625 12.925781 2.0625 24 C 2.0625 30.425781 5.625 36.09375 11 39.71875 C 10.992188 39.933594 11 40.265625 10.71875 41.3125 C 10.371094 42.605469 9.683594 44.4375 8.25 46.46875 L 7.21875 47.90625 L 9 47.9375 C 15.175781 47.964844 18.753906 43.90625 19.3125 43.25 C 21.136719 43.65625 23.035156 43.9375 25 43.9375 C 37.582031 43.9375 47.9375 35.074219 47.9375 24 C 47.9375 12.925781 37.582031 4.0625 25 4.0625 Z M 25 5.9375 C 36.714844 5.9375 46.0625 14.089844 46.0625 24 C 46.0625 33.910156 36.714844 42.0625 25 42.0625 C 22.996094 42.0625 21.050781 41.820313 19.21875 41.375 L 18.65625 41.25 L 18.28125 41.71875 C 18.28125 41.71875 15.390625 44.976563 10.78125 45.75 C 11.613281 44.257813 12.246094 42.871094 12.53125 41.8125 C 12.929688 40.332031 12.9375 39.3125 12.9375 39.3125 L 12.9375 38.8125 L 12.5 38.53125 C 7.273438 35.21875 3.9375 29.941406 3.9375 24 C 3.9375 14.089844 13.28125 5.9375 25 5.9375 Z"/></svg></span>'
+                    const share = '<span class="mrl16"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path d="M15.379,19.1403 L12.108,12.5993 L19.467,5.2413 L15.379,19.1403 Z M4.86,8.6213 L18.76,4.5343 L11.401,11.8923 L4.86,8.6213 Z M3.359,8.0213 C2.923,8.1493 2.87,8.7443 3.276,8.9483 L11.128,12.8733 L15.053,20.7243 C15.256,21.1303 15.852,21.0773 15.98,20.6413 L20.98,3.6413 C21.091,3.2623 20.739,2.9093 20.359,3.0213 L3.359,8.0213 Z"/></svg></span>'
+                    const save = '</div><div><span><svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 0 24 24" width="28px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2zm0 15l-5-2.18L7 18V5h10v13z"/></svg></span></div></div>'
+                    const totallikes = '<div class="mrx16"><p style="margin-top: 2px;"><span id="EXtotalLikes-'+p.id+'">'+p.totallikes+'</span> likes</p>'
+                    const caption = '<p style="margin-top: -8px;"><span style="font-weight: bold;">'+p.userfullname+' </span>'+p.caption+'</p>'
+                    let totalcomments = ''//'<p style="font-size: 18px; opacity: .6; margin-top: -8px;">View all 54 comments</p>'
+                    
+                    const commentContainerHeader = '<div id="EXcommentContainer-'+p.id+'">'
+                    const commentContainerFooter = '</div>'
+                    let commentContainerBody = ''
+
+                    if(p['comments'].length){
+                        totalcomments = '<p onclick="EXgetMoreComments('+p.id+')" class="pointer" style="font-size: 18px; opacity: .6; margin-top: -8px;">View all '+p['totalComments']+' comments</p>'
+                        for(let i=0; i<p['comments'].length; i++){
+                            commentContainerBody += '<div class="space-between" style="margin-top: -30px;"><p style="font-size: 14px;"><span style="font-weight: bold;">'+p["comments"][i]["userfullname"]+' </span>'+p["comments"][i]["body"]+'</p><p><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z"/></svg></p></div>'
+                        }
+                    }
+                    const comment12 = commentContainerHeader + commentContainerBody + commentContainerFooter
+                    const comment1 = '<div id="EXcommentContainer-'+p.id+'"><div class="space-between" style="margin-top: -30px;"><p style="font-size: 14px;"><span style="font-weight: bold;">prothome alo </span>😢😢😢😢কত কঠিন দুনিয়া😢😢😢😢</p><p><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z"/></svg></p></div>'
+                    const comment2 = '<div class="space-between" style="margin-top: -30px;"><p style="font-size: 14px;"><span style="font-weight: bold;">Asif Biswas </span>দুনিয়া😢</p><p><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z"/></svg></p></div></div></div>'
+                    const p2 = '<div style="margin: 0 -16px 0 -16px;" class="border-top border-light-gray"><div class="space-between" style="height: 44px;">'
+                    const mypp = '<div class="mr8"><img style="width: 35px; height: 35px; border-radius: 50%;" src="{{aboutMe.profilePicture.url}}"/></div>'
+                    const commentbox = '<div style="width: 100%; margin-right: 8px;"><textarea id="EXcomment-'+p.id+'" style="width: 100%; border: none; height: 25px; resize: none; font-size: 15px;" type="text" placeholder="Add a comment..."></textarea></div>'
+                    const postcomment = '<div onclick="EXaddComment('+p.id+')" class="mr8 pointer"><p class="hover-blue text-blue pdx8 pdy8">Post</p></div></div></div></div></div>'
+
+                    const ok = p1+userpp+userfullname+image+like+comment+share+save+totallikes+caption+totalcomments+comment12+p2+mypp+commentbox+postcomment
+                    document.getElementById("EXpostContainer").innerHTML += ok
+
+                    EXpostId.push(p['id'])
+
+                }
+                if(post.length){
+                    EXmoreData = true
+                }else{
+                    EXmoreData = false
+                }
+                EXbottom = false
+            })
+        })
+    }
+    
+</script>
+{% endblock %}

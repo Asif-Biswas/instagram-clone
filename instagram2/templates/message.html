@@ -4,12 +4,12 @@
 {% block body %}
 
 <div class="home-margin-top" style="margin-left: 4px; margin-right: 6px;">
-    <div class="flex border border-light-gray white" style="width: 100%; max-width: 960px; height: 85vh; margin: auto;">
+    <div class="flex border hide-scrollbar hiddenx border-light-gray white" style="width: 100%; max-width: 960px; height: 85vh; margin: auto;">
         <div id="chatListContainer" class="l5 m5 s12 hide-scrollbar" style="height: 100%; overflow-y: scroll;">
             <div class="pd16 space-between border-bottom border-light-gray">
-                <div>
+                <a href="{% url 'home' %}"><div>
                     <span><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none" opacity=".87"/><path d="M17.51 3.87L15.73 2.1 5.84 12l9.9 9.9 1.77-1.77L9.38 12l8.13-8.13z"/></svg></span>
-                </div>
+                </div></a>
                 <div>
                     <span style="margin-top: 16px; font-weight: bold;">Chats</span> 
                     <!-- <span><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg></span> -->
@@ -25,7 +25,7 @@
                     <div style="border-bottom: 1px solid lightgray;">
                         <div id="conversationId-{{c.id}}" onclick="openConversation({{c.id}})" class="flex mry8 hover-conversation-color pointer round5 pd4">
                             <div style="width: 50px;">
-                                <img style="width: 50px; height: 50px; border-radius: 50%;" src="{% static 'images/useravater.png' %}" alt="user">
+                                <img id="userProfilePicture-{{c.id}}" style="width: 50px; height: 50px; border-radius: 50%;" src="{{c.profilePicture}}" alt="user">
                             </div>
                             <div style="margin-top: -12px; margin-left: 10px;">
                                 <p id="chatUserName-{{c.id}}">{{c.username}}</p>
@@ -58,12 +58,12 @@
                 
                 <div class="border-bottom border-light-gray" style="position: absolute; top: 0; width: 100%; margin: 8px 8px 0 0px; z-index: 2; background-color: white;">
                     <div class="space-between pdx16" style="padding-top: 6px;">
-                        <div class="hide-medium hide-large" style="width: 30px; margin-right: 16px; margin-top: -8px;">
+                        <a href="{% url 'message' %}"><div class="hide-medium hide-large" style="width: 30px; margin-right: 16px; margin-top: -8px;">
                             <span><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none" opacity=".87"/><path d="M17.51 3.87L15.73 2.1 5.84 12l9.9 9.9 1.77-1.77L9.38 12l8.13-8.13z"/></svg></span>
-                        </div>
+                        </div></a>
                         <div style="width: 100%;" class="flex">
                             <span class="hide" style="margin-right: 16px; margin-top: 4px;"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none" opacity=".87"/><path d="M17.51 3.87L15.73 2.1 5.84 12l9.9 9.9 1.77-1.77L9.38 12l8.13-8.13z"/></svg></span>
-                            <img style="width: 35px; height: 35px; border-radius: 50%;" src="{% static 'images/trk.jpg' %}" alt="user">
+                            <img id="chatUserProfilePicture" style="width: 35px; height: 35px; border-radius: 50%;" src="{% static 'images/useravater.png' %}" alt="user">
                             <div style="margin-top: -12px; margin-left: 8px;">
                                 <p id="chatUserName">Unknown user</p>
                                 <p style="margin-top: -16px; opacity: .5; font-size: small;">Active 1 hour ago</p>
@@ -76,11 +76,11 @@
                 <div style="position: absolute; bottom: 0; width: 100%;">
                     <div class="flex border border-light-gray round50 mr8 pd4">
                         <input id="inputMessage" onfocusout="inputFocuseOut()" onfocus="inputFocused()" style="width: 100%; border: none; font-size: 18px; padding-left: 8px; height: 28px;" type="text" placeholder="Message...">
-                        <span id="sendImage" class="pointer pc">
+                        <span id="sendImage" class="pointer pc" style="display: block; margin-top: 4px;">
                             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4.86 8.86l-3 3.87L9 13.14 6 17h12l-3.86-5.14z"/></svg>
                             <input id="inpMsgImg" onchange="imageSelected()" style="position: absolute; cursor: pointer; opacity: 0; height: 24px; max-width: 22px; background-color: blanchedalmond; left: 0; top: 0;" type="file" title="Select Image" name="photo" accept="image/*">
                         </span>
-                        <span id="sendLove" onclick="sendLove()" class="pointer" style="z-index: 3;"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z"/></svg></span>
+                        <span id="sendLove" onclick="sendLove()" class="pointer" style="z-index: 3; display: block; margin-top: 4px;"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z"/></svg></span>
                         <span id="sendMessage" onclick="sendMessage()" class="pointer hide hover-blue text-blue flex-center pdx8 round5" style="z-index: 3;"> Send </span>
                     </div>
                 </div>
@@ -95,7 +95,7 @@
                     </div>
                 </div>
 
-                <div id="messageContainer" class="hide-scrollbar" style="position: absolute; transform: rotate(180deg); top: 66px; bottom: 54px; overflow: scroll; width: inherit;">
+                <div onscroll="msgContainerScrolling()" id="messageContainer" class="hide-scrollbar" style="position: absolute; transform: rotate(180deg); top: 66px; bottom: 54px; overflow: scroll; width: inherit;">
                     <p>Say 'Hello' to start the conversation</p>
                     <!-- <div class="pdl8 flex mrb8" style="transform: rotate(-180deg);">
                         <img style="width: 30px; height: 30px; border-radius: 50%;" src="{% static 'images/useravater.png' %}" alt="user">
@@ -207,9 +207,17 @@
 
 <script>
     var userId
-    var lastConversationId
+    var lastConversationId, chatUserProfilePicture
+    var pageNo = 1
+    var moreMessage = true
+    
+
     function openConversation(id){
         userId = id
+        pageNo = 1
+
+        chatUserProfilePicture = document.getElementById("userProfilePicture-"+id).src
+        document.getElementById("chatUserProfilePicture").src = chatUserProfilePicture
 
         var chatUserName = document.getElementById("chatUserName-"+id).innerText
         document.getElementById("chatUserName").innerText = chatUserName
@@ -229,7 +237,8 @@
         document.getElementById("messageContainer").innerHTML = ''
 
         fetch('/conversation/'+id+'/',{
-            method: 'GET',
+            method: 'POST',
+            body: JSON.stringify({'pageNo': pageNo}),
             headers: {
                 'Accept': 'application/json, text/plain',
                 'Contentt-type': 'application/json',
@@ -246,24 +255,81 @@
                     const element = result.messages[index];
                     if(element.sender_id === id){
                         if(element.body === null){
-                            var content = '<div class="pdl8 flex mrb8" style="transform: rotate(-180deg);"><img style="width: 30px; height: 30px; border-radius: 50%;" src="{% static "images/useravater.png" %}" alt="user"><span style="max-width: 240px; padding: 8px 4px; display: block; margin-left: 8px; border-radius: 5px;"><span style="white-space: pre-wrap;"><img src="/media/'+element.image+'" width="100%" style="border-radius: 5px; border: 1px solid gray;"></span></span></div>'
+                            var content = '<div class="pdl8 flex mrb16" style="transform: rotate(-180deg);"><img style="width: 30px; height: 30px; border-radius: 50%;" src="'+chatUserProfilePicture+'" alt="user"><span style="max-width: 240px; padding: 8px 4px; display: block; margin-left: 8px; border-radius: 5px;"><span style="white-space: pre-wrap;"><img src="/media/'+element.image+'" width="100%" style="border-radius: 5px; border: 1px solid gray;"></span></span></div>'
                         }else{
-                            content = '<div class="pdl8 flex mrb8" style="transform: rotate(-180deg);"><img style="width: 30px; height: 30px; border-radius: 50%;" src="{% static "images/useravater.png" %}" alt="user"><span style="background-color:rgb(230, 230, 230); max-width: 240px; padding: 8px 16px; display: block; margin-left: 8px; border-radius: 0px 15px 15px 15px;"><span style="white-space: pre-wrap;">'+element.body+'</span></span></div>'
+                            content = '<div class="pdl8 flex mrb16" style="transform: rotate(-180deg);"><img style="width: 30px; height: 30px; border-radius: 50%;" src="'+chatUserProfilePicture+'" alt="user"><span style="background-color:rgb(230, 230, 230); max-width: 240px; padding: 8px 16px; display: block; margin-left: 8px; border-radius: 0px 15px 15px 15px;"><span style="white-space: pre-wrap;">'+element.body+'</span></span></div>'
                         }
                         
                     }else{
                         if(element.body === null){
-                            content = '<div class="pdr8 mrb8" style="transform: rotate(-180deg); display: flex; justify-content: flex-end;"><span style="max-width: 220px; padding: 8px 4px; display: block; margin-right: 8px; border-radius: 5px;"><span style="white-space: pre-wrap;"><img src="/media/'+element.image+'" width="100%" style="border-radius: 5px; border: 1px solid gray;"></span></span><img style="width: 30px; height: 30px; border-radius: 50%;" src="{{aboutMe.profilePicture.url}}" alt="user"></div>'
+                            content = '<div class="pdr8 mrb16" style="transform: rotate(-180deg); display: flex; justify-content: flex-end;"><span style="max-width: 220px; padding: 8px 4px; display: block; margin-right: 8px; border-radius: 5px;"><span style="white-space: pre-wrap;"><img src="/media/'+element.image+'" width="100%" style="border-radius: 5px; border: 1px solid gray;"></span></span><img style="width: 30px; height: 30px; border-radius: 50%;" src="{{aboutMe.profilePicture.url}}" alt="user"></div>'
                         }else{
-                            content = '<div class="pdr8 mrb8" style="transform: rotate(-180deg); display: flex; justify-content: flex-end;"><span style="background-color:rgb(230, 230, 230); max-width: 220px; padding: 8px 16px; display: block; margin-right: 8px; border-radius: 15px 0 15px 15px;"><span style="white-space: pre-wrap;">'+element.body+'</span></span><img style="width: 30px; height: 30px; border-radius: 50%;" src="{{aboutMe.profilePicture.url}}" alt="user"></div>'
+                            content = '<div class="pdr8 mrb16" style="transform: rotate(-180deg); display: flex; justify-content: flex-end;"><span style="background-color:rgb(230, 230, 230); max-width: 220px; padding: 8px 16px; display: block; margin-right: 8px; border-radius: 15px 0 15px 15px;"><span style="white-space: pre-wrap;">'+element.body+'</span></span><img style="width: 30px; height: 30px; border-radius: 50%;" src="{{aboutMe.profilePicture.url}}" alt="user"></div>'
                         }
                     }
                     var messageContainerHtml = document.getElementById("messageContainer")
-                    messageContainerHtml.innerHTML = content + messageContainerHtml.innerHTML
+                    messageContainerHtml.innerHTML = messageContainerHtml.innerHTML + content
                     
                 }
                 document.getElementById("skltnChat").className = 'hide'
                 document.getElementById("realChat").className = 'hide-scrollbar reverse-scroll'
+                pageNo += 1
+            })
+        })
+    }
+
+    function getMessages(id){
+        moreMessage = false
+        fetch('/conversation/'+id+'/',{
+            method: 'POST',
+            body: JSON.stringify({'pageNo': pageNo}),
+            headers: {
+                'Accept': 'application/json, text/plain',
+                'Contentt-type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            }
+        })
+        .then((response)=>{
+            response.json().then((result)=>{
+                // if(result.messages.length == 0){
+                //     document.getElementById("messageContainer").innerHTML = "<p style='transform: rotate(-180deg); text-align: center;'>Say 'Hello' to start the conversation</p>"
+                // }
+                //console.log(Object.keys(result).length);
+                
+                var messageContainerHtml = ''
+                for (let index = 0; index < result.messages.length; index++) {
+                    const element = result.messages[index];
+                    if(element.sender_id === id){
+                        if(element.body === null){
+                            var content = '<div class="pdl8 flex mrb16" style="transform: rotate(-180deg);"><img style="width: 30px; height: 30px; border-radius: 50%;" src="'+chatUserProfilePicture+'" alt="user"><span style="max-width: 240px; padding: 8px 4px; display: block; margin-left: 8px; border-radius: 5px;"><span style="white-space: pre-wrap;"><img src="/media/'+element.image+'" width="100%" style="border-radius: 5px; border: 1px solid gray;"></span></span></div>'
+                        }else{
+                            content = '<div class="pdl8 flex mrb16" style="transform: rotate(-180deg);"><img style="width: 30px; height: 30px; border-radius: 50%;" src="'+chatUserProfilePicture+'" alt="user"><span style="background-color:rgb(230, 230, 230); max-width: 240px; padding: 8px 16px; display: block; margin-left: 8px; border-radius: 0px 15px 15px 15px;"><span style="white-space: pre-wrap;">'+element.body+'</span></span></div>'
+                        }
+                        
+                    }else{
+                        if(element.body === null){
+                            content = '<div class="pdr8 mrb16" style="transform: rotate(-180deg); display: flex; justify-content: flex-end;"><span style="max-width: 220px; padding: 8px 4px; display: block; margin-right: 8px; border-radius: 5px;"><span style="white-space: pre-wrap;"><img src="/media/'+element.image+'" width="100%" style="border-radius: 5px; border: 1px solid gray;"></span></span><img style="width: 30px; height: 30px; border-radius: 50%;" src="{{aboutMe.profilePicture.url}}" alt="user"></div>'
+                        }else{
+                            content = '<div class="pdr8 mrb16" style="transform: rotate(-180deg); display: flex; justify-content: flex-end;"><span style="background-color:rgb(230, 230, 230); max-width: 220px; padding: 8px 16px; display: block; margin-right: 8px; border-radius: 15px 0 15px 15px;"><span style="white-space: pre-wrap;">'+element.body+'</span></span><img style="width: 30px; height: 30px; border-radius: 50%;" src="{{aboutMe.profilePicture.url}}" alt="user"></div>'
+                        }
+                    }
+                    //console.log(content);
+                    //document.getElementById("messageContainer")
+                    messageContainerHtml = content + messageContainerHtml
+
+                    
+                }
+                //console.log(messageContainerHtml);
+                document.getElementById("messageContainer").innerHTML += messageContainerHtml
+                document.getElementById("skltnChat").className = 'hide'
+                document.getElementById("realChat").className = 'hide-scrollbar reverse-scroll'
+                pageNo += 1
+                msgContainerBottom = false
+                if(result.moreMessage === false){
+                    moreMessage = false
+                }else{
+                    moreMessage = true
+                }
             })
         })
     }
@@ -299,7 +365,7 @@
         .then((response)=>{
             response.json().then((result)=>{
                 if(result.response === 'sent'){
-                    const addMyMsg = '<div class="pdr8 mrb8" style="transform: rotate(-180deg); display: flex; justify-content: flex-end;"><span style="background-color:rgb(230, 230, 230); max-width: 220px; padding: 8px 16px; display: block; margin-right: 8px; border-radius: 15px 0 15px 15px;"><span style="white-space: pre-wrap;">'+inpMsgVal+'</span></span><img style="width: 30px; height: 30px; border-radius: 50%;" src="{% static "images/useravater.png" %}" alt="user"></div>'
+                    const addMyMsg = '<div class="pdr8 mrb16" style="transform: rotate(-180deg); display: flex; justify-content: flex-end;"><span style="background-color:rgb(230, 230, 230); max-width: 220px; padding: 8px 16px; display: block; margin-right: 8px; border-radius: 15px 0 15px 15px;"><span style="white-space: pre-wrap;">'+inpMsgVal+'</span></span><img style="width: 30px; height: 30px; border-radius: 50%;" src="{% static "images/useravater.png" %}" alt="user"></div>'
                     var messageContainerHtml2 = document.getElementById("messageContainer")
                     messageContainerHtml2.innerHTML = addMyMsg + messageContainerHtml2.innerHTML
                 
@@ -334,7 +400,7 @@
         .then((response)=>{
             response.json().then((result)=>{
                 if(result.response === 'sent'){
-                    const addMyMsg = '<div class="pdr8 mrb8" style="transform: rotate(-180deg); display: flex; justify-content: flex-end;"><span style="background-color:rgb(230, 230, 230); max-width: 220px; padding: 8px 16px; display: block; margin-right: 8px; border-radius: 15px 0 15px 15px;"><span style="white-space: pre-wrap;">❤️</span></span><img style="width: 30px; height: 30px; border-radius: 50%;" src="{% static "images/useravater.png" %}" alt="user"></div>'
+                    const addMyMsg = '<div class="pdr8 mrb16" style="transform: rotate(-180deg); display: flex; justify-content: flex-end;"><span style="background-color:rgb(230, 230, 230); max-width: 220px; padding: 8px 16px; display: block; margin-right: 8px; border-radius: 15px 0 15px 15px;"><span style="white-space: pre-wrap;">❤️</span></span><img style="width: 30px; height: 30px; border-radius: 50%;" src="{% static "images/useravater.png" %}" alt="user"></div>'
                     var messageContainerHtml2 = document.getElementById("messageContainer")
                     messageContainerHtml2.innerHTML = addMyMsg + messageContainerHtml2.innerHTML
                 
@@ -382,7 +448,7 @@
             .then((response)=>{
                 response.json().then((result)=>{
                     if(result.response === 'sent'){
-                        const addMyMsg = '<div class="pdr8 mrb8" style="transform: rotate(-180deg); display: flex; justify-content: flex-end;"><span style="max-width: 220px; padding: 8px 4px; display: block; margin-right: 8px; border-radius: 5px;"><span style="white-space: pre-wrap;"><img src="'+URL.createObjectURL(img2)+'" width="100%" style="border-radius: 5px; border: 1px solid gray;"></span></span><img style="width: 30px; height: 30px; border-radius: 50%;" src="{% static "images/useravater.png" %}" alt="user"></div>'
+                        const addMyMsg = '<div class="pdr8 mrb16" style="transform: rotate(-180deg); display: flex; justify-content: flex-end;"><span style="max-width: 220px; padding: 8px 4px; display: block; margin-right: 8px; border-radius: 5px;"><span style="white-space: pre-wrap;"><img src="'+URL.createObjectURL(img2)+'" width="100%" style="border-radius: 5px; border: 1px solid gray;"></span></span><img style="width: 30px; height: 30px; border-radius: 50%;" src="{% static "images/useravater.png" %}" alt="user"></div>'
                         var messageContainerHtml2 = document.getElementById("messageContainer")
                         messageContainerHtml2.innerHTML = addMyMsg + messageContainerHtml2.innerHTML
                     
@@ -398,12 +464,31 @@
                         document.getElementById("sendLove").className = 'pointer'
                         document.getElementById("previewImageContainer").className = 'hide'
                     }
-                    
                 })
             })
         }
-        
     }
+
+
+    let msgContainerBottom = false
+    function msgContainerScrolling(){
+        var h = document.getElementById("messageContainer")
+        if(h.scrollTop + 200 >= h.scrollHeight - h.offsetHeight){
+            msgContainerBottom = true
+        }
+        if(msgContainerBottom && moreMessage){
+            getMessages(userId)
+        }
+        //console.log(h);
+    }
+
+    // function hideConversationForSmall(){
+    //     document.getElementById("conversationContainer").className = 'l7 m7 s12 hide-small border-left border-light-gray pc'
+    //     document.getElementById("chatListContainer").className = 'l5 m5 s12 hide-scrollbar'
+    //     document.getElementById("conversationId-"+userId).className = 'flex mry8 hover-conversation-color pointer round5 pd4'
+
+    // }
+
 </script>
 
 {% endblock %}

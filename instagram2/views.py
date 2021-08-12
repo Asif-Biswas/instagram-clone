@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.http import JsonResponse
 from .models import *
 import json
+import math
 from django.db.models import Q, Max, Min
 
 # Create your views here.
@@ -26,11 +27,46 @@ def home(request):
     post = paginator.get_page(page_number)
 
     aboutMe = myAbout(request.user)
+    followingUserId = []
+    followingUser = aboutMe.following.all()
+    for i in followingUser:
+        followingUserId.append(i.id)
+    randomUser = User.objects.all().exclude(id__in = followingUserId).exclude(id=request.user.id).order_by('?')[:5]
+    #randomUser = list(randomUser.values())
+    randomUserList = []
+    for i in randomUser:
+        l = {}
+        l['id'] = i.id
+        l['username'] = i.username
+        aboutUser = myAbout(i)
+        l['profilePicture'] = aboutUser.profilePicture.url
 
+        randomFollower = aboutUser.followed_by.all().order_by('?').first()
+        if request.user in aboutUser.following.all():
+            l['randomFollower'] = 'Follows you'
+        elif randomFollower == None:
+            l['randomFollower'] = 'New to Instagram'
+        else:
+            l['randomFollower'] = randomFollower.username
+
+        randomUserList.append(l)
+
+    
+    storiesIdList = []
+    stories = Post.objects.all().order_by('?')[:7]
+    for i in stories:
+        aboutUser = About.objects.get(user=i.user).profilePicture
+        i.userProfilePicture = aboutUser
+        storiesIdList.append(i.id)
+
+            
     return render(request, 'home.html', {
         'home': True,
         'post': post,
         'aboutMe': aboutMe,
+        'randomUser': randomUserList,
+        'stories': stories,
+        'storiesIdList': storiesIdList,
     })
 
 
@@ -141,6 +177,9 @@ def message(request):
             lmb = 'Sent an Image'
         
         l['lm'] = lmb
+        user = User.objects.get(id = i.id)
+        aboutUser = myAbout(user)
+        l['profilePicture'] = aboutUser.profilePicture.url
         conversationList2.append(l)
     
     try:
@@ -166,11 +205,15 @@ def message(request):
 
 @login_required(login_url='/accounts/login/')
 def conversation(request, pk):
+    page = json.loads(request.body.decode("utf-8"))['pageNo']
     user1 = request.user.id
     user2 = User.objects.get(id=pk).id
-    msg = Message.objects.filter(Q(receiver = user1, sender = user2)|Q(sender = user1, receiver = user2)).order_by('date')#.reverse()
+    msg = Message.objects.filter(Q(receiver = user1, sender = user2)|Q(sender = user1, receiver = user2)).order_by('-date')[(page-1)*10:page*10]#.reverse()
+    moreMessage = True
+    if msg.count() == 0:
+        moreMessage = False
     messages = list(msg.values())
-    return JsonResponse({'messages': messages})
+    return JsonResponse({'messages': messages, 'moreMessage': moreMessage})
 
 
 @login_required(login_url='/accounts/login/')
@@ -191,26 +234,250 @@ def sendMessage(request):
         return JsonResponse({'response': 'sent'})
     
     
-
+@login_required(login_url='/accounts/login/')
+def sendMessageFromStories(request):
+    data = json.loads(request.body.decode("utf-8"))
+    post = data['postId']
+    receiver = Post.objects.get(id=post).user
+    #receiver = User.objects.get(id=receiverId)
+    body = data['body']
+    sender = request.user
+    Message.objects.create(sender=sender, receiver=receiver, body=body)
+    return JsonResponse({'response': 'sent'})
 
 
 @login_required(login_url='/accounts/login/')
 def explore(request):
+    posts = Post.objects.all().order_by('?')[:12]
+    for i in posts:
+        i.totalLikes = i.liked_by.all().count()
+        i.totalComments = Comment.objects.filter(post=i.id).count()
+    
+    try:
+        data = json.loads(request.body.decode("utf-8"))['exploreItemId']
+        posts2 = Post.objects.all().exclude(id__in = data).order_by('?')[:12]
+
+        noMoreExplorePost = False
+
+        posts3 = list(posts2.values())
+
+        countPost = posts2.count()
+        if countPost < 12:
+            needMore = 12-countPost
+            morePosts = Post.objects.all().order_by('?')[:needMore]
+            posts3.append(list(morePosts.values())[0])
+            noMoreExplorePost = True
+
+
+        for i in posts3:
+            p = Post.objects.get(id=i['id'])
+            i['totalLikes'] = p.liked_by.all().count()
+            i['totalComments'] = Comment.objects.filter(post=p.id).count()
+            i['image'] = p.image.url
+            
+        return JsonResponse({'posts': posts3, 'noMoreExplorePost': noMoreExplorePost})
+
+    except:
+        pass
+    # allPosts = list(posts.values())
+    # for i in allPosts:
+    #     comments = Comment.objects.filter(post = i['id']).count()
+    #     totalLikes = Post.objects.get(id=i['id']).liked_by.all().count()
+    #     i['totalLikes'] = totalLikes
+    #     i['totalComments'] = comments
     aboutMe = myAbout(request.user)
     return render(request, 'explore.html', {
         'explore': True,
+        'posts': posts,
         'aboutMe': aboutMe,
     })
-
 
 
 @login_required(login_url='/accounts/login/')
-def profile(request):
-    #myUsername = request.user.username
+def exploreMore(request, pk):
+    post = Post.objects.get(id=pk)
+    post.totalLikes = post.liked_by.all().count()
+    post.totalComments = Comment.objects.filter(post=pk).count()
+    userAbout = myAbout(post.user)
+    post.userProfilePicture = userAbout.profilePicture.url
+    try:
+        post.firstComment = Comment.objects.filter(post=pk)[:1][0]
+    except :
+        post.firstComment = False
+    try:
+        post.secondComment = Comment.objects.filter(post=pk)[1:2][0]
+    except :
+        post.secondComment = False
+    
+    
+    #print(post.secondComment.values())
     aboutMe = myAbout(request.user)
+    followingUserId = []
+    followingUser = aboutMe.following.all()
+    for i in followingUser:
+        followingUserId.append(i.id)
+    randomUser = User.objects.all().exclude(id__in = followingUserId).exclude(id=request.user.id).order_by('?')[:5]
+    #randomUser = list(randomUser.values())
+    randomUserList = []
+    for i in randomUser:
+        l = {}
+        l['id'] = i.id
+        l['username'] = i.username
+        aboutUser = myAbout(i)
+        l['profilePicture'] = aboutUser.profilePicture.url
+
+        randomFollower = aboutUser.followed_by.all().order_by('?').first()
+        if request.user in aboutUser.following.all():
+            l['randomFollower'] = 'Follows you'
+        elif randomFollower == None:
+            l['randomFollower'] = 'New to Instagram'
+        else:
+            l['randomFollower'] = randomFollower.username
+
+        randomUserList.append(l)
+
+    return render(request, 'exploremore.html', {
+        'p': post,
+        'aboutMe': aboutMe,
+        'randomUser': randomUserList,
+        'exploreMore': True,
+    })
+
+
+@login_required(login_url='/accounts/login/')
+def profile(request, pk):
+    #myUsername = request.user.username
+    user = User.objects.get(id=pk)
+    aboutUser = myAbout(user)
+    userPosts = Post.objects.filter(user=user).order_by('-date')
+    # for i in userPosts:
+    #     i.image = i.image.url
+    #     i.totalLikes = i.liked_by.all().count()
+    #     print(i.liked_by.all().count())
+    #     i.totalComments = Comment.objects.filter(post=i.id).count()
+    #     print(i.totalLikes)
+    # print(userPosts.values())
+    posts = []
+    zero = 0
+    zero2 = 0
+    lenOfPosts = len(userPosts)
+    userPosts = userPosts.values()
+    
+    subListLen = math.ceil(lenOfPosts/3)
+    while zero < subListLen:
+        subList = []
+        while len(subList) < 3:
+            try:
+                subList.append(userPosts[zero2])
+                zero2 += 1
+            except :
+                break
+            
+        posts.append(subList)
+        zero += 1
+
+    for i in posts:
+        for j in i:
+            post = Post.objects.get(id=j['id'])
+            j['image'] = post.image.url
+            j['totalLikes'] = post.liked_by.all().count()
+            j['totalComments'] = Comment.objects.filter(post=post).count()
+
+    aboutMe = myAbout(request.user)
+    totalPosts = Post.objects.filter(user=user).count()
     return render(request, 'profile.html',{
         'aboutMe': aboutMe,
+        'user': user,
+        'aboutUser': aboutUser,
+        'userPosts': posts,
+        'totalPosts': totalPosts,
     })
+
+@login_required(login_url='/accounts/login/')
+def userPosts(request, pk):
+    post = Post.objects.get(id=pk)
+    post.totalLikes = post.liked_by.all().count()
+    post.totalComments = Comment.objects.filter(post=pk).count()
+    userAbout = myAbout(post.user)
+    post.userProfilePicture = userAbout.profilePicture.url
+    try:
+        post.firstComment = Comment.objects.filter(post=pk)[:1][0]
+    except :
+        post.firstComment = False
+    try:
+        post.secondComment = Comment.objects.filter(post=pk)[1:2][0]
+    except :
+        post.secondComment = False
+    
+    
+    #print(post.secondComment.values())
+    aboutMe = myAbout(request.user)
+    followingUserId = []
+    followingUser = aboutMe.following.all()
+    for i in followingUser:
+        followingUserId.append(i.id)
+    randomUser = User.objects.all().exclude(id__in = followingUserId).exclude(id=request.user.id).order_by('?')[:5]
+    #randomUser = list(randomUser.values())
+    randomUserList = []
+    for i in randomUser:
+        l = {}
+        l['id'] = i.id
+        l['username'] = i.username
+        aboutUser = myAbout(i)
+        l['profilePicture'] = aboutUser.profilePicture.url
+
+        randomFollower = aboutUser.followed_by.all().order_by('?').first()
+        if request.user in aboutUser.following.all():
+            l['randomFollower'] = 'Follows you'
+        elif randomFollower == None:
+            l['randomFollower'] = 'New to Instagram'
+        else:
+            l['randomFollower'] = randomFollower.username
+
+        randomUserList.append(l)
+
+    return render(request, 'userposts.html', {
+        'p': post,
+        'aboutMe': aboutMe,
+        'randomUser': randomUserList,
+        'exploreMore': True,
+    })
+
+
+@login_required(login_url='/accounts/login/')
+def getMoreUserPost(request):
+    data = json.loads(request.body.decode("utf-8"))
+
+    if request.method == 'POST':
+        postId = data['postId']
+    print(postId)
+    post2 = Post.objects.filter(id__lt = postId[0], user = Post.objects.get(id=postId[0]).user).exclude(id__in=postId)[:2]#[(page_number-1)*2:page_number*2]
+    # for i in post2:
+    #     print(i.image.url)
+    print(post2)
+    post = list(post2.values())
+    for i in post:
+        user = User.objects.get(id=i['user_id'])
+        i['userfullname'] = user.first_name+' '+user.last_name
+        aboutUser = myAbout(user)
+        i['userProfilePricture'] = aboutUser.profilePicture.url
+        postt = Post.objects.get(id=i['id'])
+        i['image'] = postt.image.url
+        i['totallikes'] = postt.liked_by.count()
+        
+        if request.user in postt.liked_by.all():
+            i['isLiked'] = True
+        else:
+            i['isLiked'] = False
+
+        comments = Comment.objects.filter(post=postt)[:2]
+        comments2 = list(comments.values())
+        for ii in comments2:
+            userfullname2 = User.objects.get(id=ii['user_id']).first_name
+            ii['userfullname'] = userfullname2
+        i['comments'] = comments2
+        i['totalComments'] = Comment.objects.filter(post=postt).count()
+    return JsonResponse({'response': post})
 
 
 @login_required(login_url='/accounts/login/')

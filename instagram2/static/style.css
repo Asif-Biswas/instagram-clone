@@ -39,7 +39,11 @@ a{text-decoration: none; color: inherit;}
     to{width: 100%;}
 }
 .width0to100{width: 0; height: 3px; background-color: white; animation-name: width0to100name; animation-duration: 5s; animation-timing-function: linear;}
-
+@keyframes hideAfter2secAN{
+    from{opacity: 1;}
+    to{opacity: 0;}
+}
+.hideAfter2sec{opacity: 1; animation-name: hideAfter2secAN; animation-duration: 2s; animation-fill-mode: forwards;}
 /*.tooltip .tooltiptext::after, .tooltip .tooltiptext-show::after {content: "";position: absolute;
     bottom: 100%;
     right: 10px;

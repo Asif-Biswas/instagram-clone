@@ -31,10 +31,16 @@
                     </div>
                     
                     <div class="pff" style="display: flex; justify-content: space-between; align-items: center; margin-top: -16px;">
-                        <p><b>642</b> posts</p>
-                        <p><b>21.5k</b> followers</p>
-                        <p><b>142</b> following</p>
+                        <p><b>{{totalPosts}}</b> posts</p>
+                        <p><b>{{aboutUser.followed_by.all.count}}</b> followers</p>
+                        <p><b>{{aboutUser.following.all.count}}</b> following</p>
                     </div>
+                    {% if aboutUser.bio %}
+                    <div class="hide-medium hide-large">{{aboutUser.bio}}</div>
+                    {% endif %}
+                    {% if aboutUser.followed_by.0 %}
+                    <div class="hide-medium hide-large"><span style="opacity: .6;">Followed by </span> {% with aboutUser.followed_by.0 as f %}{{f.first_name}}{% endwith %}, aymansadiq10 <span style="opacity: .6;">and</span> tahsankhan</div>
+                    {% endif %}
                     <div class="hide-medium hide-large"><span style="opacity: .6;">Followed by </span> jhankarmahbub, aymansadiq10 <span style="opacity: .6;">and</span> tahsankhan</div>
                 </div>
             </div>
@@ -48,7 +54,44 @@
                 <span><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg></span>
                 <span style="display: block; margin-top: 4px; margin-left: 8px;">Posts</span>
             </div>
+            {% for l in userPosts %}
             <div style="position: relative; padding-bottom: 33.333%;">
+                <div class="" style="top: 0; right: 0; bottom: 0; left: 0; display: flex; position: absolute;">
+                    {% for p in l %}
+                    <a href="{% url 'userPosts' p.id %}" class="s4 m4 l4 pc" style="padding-bottom: calc(33.333%-32px);">
+                        <div class="explore-item-padding" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
+                            <div style="height: 100%; width: 100%; position: relative;">
+                                <img src="{{p.image}}" height="100%" width="100%" alt="img">
+                                <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;">
+                                    <span class="hover-opacity2-child">
+                                        <span style="display: flex;"><span>{{p.totalLikes}}</span> <span style="display: block; margin-top: -4px; margin-left: 8px;"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span></span>
+                                        <span style="display: flex; margin-top: 8px;"><span>{{p.totalComments}}</span> <span style="display: block; margin-top: -4px; margin-left: 8px;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M12 1c-6.628 0-12 4.573-12 10.213 0 2.39.932 4.591 2.427 6.164l-2.427 5.623 7.563-2.26c9.495 2.598 16.437-3.251 16.437-9.527 0-5.64-5.372-10.213-12-10.213z"/></svg></span></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                    <!-- <div class="s4 m4 l4 pc" style="padding-bottom: calc(33.333%-32px);">
+                        <div class="explore-item-padding" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
+                            <div style="height: 100%; width: 100%; position: relative;">
+                                <img src="{% static 'images/trk.jpg' %}" height="100%" width="100%" alt="img">
+                                <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;"><span class="hover-opacity2-child">ewbf few</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="s4 m4 l4 pc" style="padding-bottom: calc(33.333%-32px);">
+                        <div class="explore-item-padding" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
+                            <div style="height: 100%; width: 100%; position: relative;">
+                                <img src="{% static 'images/trk.jpg' %}" height="100%" width="100%" alt="img">
+                                <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;"><span class="hover-opacity2-child">ewbf few</span></div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            {% endfor %}
+            <!-- <div style="position: relative; padding-bottom: 33.333%;">
                 <div class="" style="top: 0; right: 0; bottom: 0; left: 0; display: flex; position: absolute;">
                     <div class="s4 m4 l4 pc" style="padding-bottom: calc(33.333%-32px);">
                         <div class="explore-item-padding" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
@@ -75,36 +118,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div style="position: relative; padding-bottom: 33.333%;">
-                <div class="" style="top: 0; right: 0; bottom: 0; left: 0; display: flex; position: absolute;">
-                    <div class="s4 m4 l4 pc" style="padding-bottom: calc(33.333%-32px);">
-                        <div class="explore-item-padding" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
-                            <div style="height: 100%; width: 100%; position: relative;">
-                                <img src="{% static 'images/trk.jpg' %}" height="100%" width="100%" alt="img">
-                                <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;"><span class="hover-opacity2-child">ewbf few</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="s4 m4 l4 pc" style="padding-bottom: calc(33.333%-32px);">
-                        <div class="explore-item-padding" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
-                            <div style="height: 100%; width: 100%; position: relative;">
-                                <img src="{% static 'images/trk.jpg' %}" height="100%" width="100%" alt="img">
-                                <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;"><span class="hover-opacity2-child">ewbf few</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="s4 m4 l4 pc" style="padding-bottom: calc(33.333%-32px);">
-                        <div class="explore-item-padding" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;">
-                            <div style="height: 100%; width: 100%; position: relative;">
-                                <img src="{% static 'images/trk.jpg' %}" height="100%" width="100%" alt="img">
-                                <div class="hover-opacity2" style="position: absolute; height: 100%; width: 100%; top: 0; color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center;"><span class="hover-opacity2-child">ewbf few</span></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
