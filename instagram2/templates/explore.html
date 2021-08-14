@@ -6,40 +6,26 @@
 <div onscroll="exploreScrolling()" class="home-margin-top mrx4">
     <div class="hide-medium hide-large">
         <div class="pdt4 pdb4 pc" style="display: flex; justify-content: center;">
-            <input style="height: 24px; max-width: 500px; width: 98%; border-radius: 3px; border: 1px solid gray; background-color: rgb(255, 248, 248); text-align: center; font-family:Arial, FontAwesome;" type="text" placeholder="&#xF002; search">
+            <input onkeypress="searchUser3(event)" style="height: 24px; max-width: 500px; width: 98%; border-radius: 3px; border: 1px solid gray; background-color: rgb(255, 248, 248); text-align: center; font-family:Arial, FontAwesome;" type="text" placeholder="&#xF002; search">
             
-            <div class="card-4 white hide" style="position: absolute; top: 150%; height: 400px; width: 400px; z-index: 3;">
-                <div class="pc mr8" style="height: 100%;">
+            <div id="exsearchContainer" class="card-4 white hide" style="position: absolute; top: 150%; height: 400px; max-width: 400px; width: 90%; z-index: 3;">
+                <div class="pc mrx8 mrb8" style="height: 100%; margin-top: 36px;">
                     <div class="space-between hide">
                         <p><b>Recent</b></p>
                         <p class="text-blue">Clear All</p>
                     </div>
-                    <div class="hide" style="position: absolute; top: 45%; width: 100%;">
+                    <div id="exnoResultFound" class="hide" style="position: absolute; top: 45%; width: 100%;">
                         <p style="text-align: center;" class="text-gray">No results found.</p>
                     </div>
-
-                    <div class="">
-                        <div class="flex pdx8 pdt8 hover-light-gray round5">
+                    <p onclick="exhideSearchContainer()" class="pointer hover-red pdx8 pdy4" style="font-size: 20px; position: absolute; top: -46px; right: 10px;">x</p>
+                    <div id="exresultFound" class="" style="overflow-y: scroll;">
+                        <!-- <div class="flex pdx8 pdt8 hover-light-gray round5">
                             <img style="width: 50px; height: 50px; border-radius: 50%;" src="{% static 'images/useravater.png' %}" alt="">
                             <div style="margin-top: -12px; margin-left: 8px;">
                                 <p>asif.biswas</p>
                                 <p style="margin-top: -12px; opacity: .5;">Asif Biswas</p>
                             </div>
-                        </div>
-                        <div class="flex pdx8 pdt8 hover-light-gray round5">
-                            <img style="width: 50px; height: 50px; border-radius: 50%;" src="{% static 'images/useravater.png' %}" alt="">
-                            <div style="margin-top: -12px; margin-left: 8px;">
-                                <p>asif.biswas</p>
-                                <p style="margin-top: -12px; opacity: .5;">Asif Biswas</p>
-                            </div>
-                        </div>
-                        <div class="flex pdx8 pdt8 hover-light-gray round5">
-                            <img style="width: 50px; height: 50px; border-radius: 50%;" src="{% static 'images/useravater.png' %}" alt="">
-                            <div style="margin-top: -12px; margin-left: 8px;">
-                                <p>asif.biswas</p>
-                                <p style="margin-top: -12px; opacity: .5;">Asif Biswas</p>
-                            </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -362,6 +348,50 @@
             })
         })
     }
+
+    function searchUser3(e){
+            prevVal = ''
+            //console.log(e.target.value);
+            setTimeout(()=>{
+                newVal = e.target.value
+                if(prevVal !== newVal){
+                    prevVal = newVal
+                    fetch('/searchUser/',{
+                        method: 'POST',
+                        body: JSON.stringify({'name': prevVal}),
+                        headers: {
+                            'Accept': 'application/json, text/plain',
+                            'Contentt-type': 'application/json',
+                            'X-CSRFToken': csrftoken,
+                        }
+                    })
+                    .then((response)=>{
+                        response.json().then((result)=>{
+                            if(result.response.length){
+                                document.getElementById("exnoResultFound").className = 'hide'
+                                document.getElementById("exresultFound").className = ''
+                                document.getElementById("exsearchContainer").className = 'card-4 white'
+
+                                for (let index = 0; index < result.response.length; index++) {
+                                    const elm = result.response[index];
+                                    const searchResult = '<div class="flex pdx8 pdt8 hover-light-gray round5"><img style="width: 50px; height: 50px; border-radius: 50%;" src="'+elm.profilePicture+'" alt=""><div style="margin-top: -12px; margin-left: 8px;"><p>'+elm.username+'</p><p style="margin-top: -12px; opacity: .5;">'+elm.first_name+' '+elm.last_name+'</p></div></div>'
+                                    document.getElementById("exresultFound").innerHTML += searchResult
+                                }
+                            }else{
+                                document.getElementById("exsearchContainer").className = 'card-4 white'
+                                document.getElementById("exnoResultFound").className = ''
+                            }
+                        })
+                    })
+                }
+            },1000)
+            
+            //console.log(9);
+        }
+
+        function exhideSearchContainer(){
+            document.getElementById("exsearchContainer").className = 'hide'
+        }
 </script>
 
 {% endblock %}

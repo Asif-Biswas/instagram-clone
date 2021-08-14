@@ -4,7 +4,7 @@ from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.core.paginator import Paginator
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from .models import *
 import json
 import math
@@ -83,6 +83,7 @@ def getMorePost(request):
     post = list(post2.values())
     for i in post:
         user = User.objects.get(id=i['user_id'])
+        i['userId'] = user.id
         i['userfullname'] = user.first_name+' '+user.last_name
         aboutUser = myAbout(user)
         i['userProfilePricture'] = aboutUser.profilePicture.url
@@ -102,6 +103,7 @@ def getMorePost(request):
             ii['userfullname'] = userfullname2
         i['comments'] = comments2
         i['totalComments'] = Comment.objects.filter(post=postt).count()
+
     return JsonResponse({'response': post})
 
 
@@ -125,6 +127,8 @@ def likePost(request, pk):
     try:
         post = get_object_or_404(Post, pk=pk)
         post.liked_by.add(user)
+        if not Notification.objects.filter(user1=post.user, user2=user, topic='like', post=post).exists():
+            Notification.objects.create(user1=post.user, user2=user, topic='like', post=post)
         return JsonResponse({'response': 'liked'})
     except:
         return JsonResponse({'response': '404'})
@@ -135,6 +139,8 @@ def cancelLikePost(request, pk):
     try:
         post = get_object_or_404(Post, pk=pk)
         post.liked_by.remove(user)
+        if Notification.objects.filter(user1=post.user, user2=user, topic='like', post=post).exists():
+            Notification.objects.filter(user1=post.user, user2=user, topic='like', post=post).delete()
         return JsonResponse({'response': 'likeCanceled'})
     except:
         return JsonResponse({'response': '404'})
@@ -146,6 +152,10 @@ def addComment(request, pk):
     post = get_object_or_404(Post, pk=pk)
     data = json.loads(request.body.decode("utf-8"))
     Comment.objects.create(user=user, post=post, body=data['body'])
+    #create notification
+    if not Notification.objects.filter(user1=post.user, user2=user, topic='comment', post=post).exists():
+        Notification.objects.create(user1=post.user, user2=user, topic='comment', post=post)
+        
     return JsonResponse({'response': 'ok'})
 
 
@@ -193,6 +203,9 @@ def message(request):
             l['id'] = i.id
             l['username'] = i.username
             l['lm'] = 'Active 1 hour ago'
+            user = User.objects.get(id = i.id)
+            aboutUser = myAbout(user)
+            l['profilePicture'] = aboutUser.profilePicture.url
             conversationList2.append(l)
 
     aboutMe = myAbout(request.user)
@@ -300,6 +313,7 @@ def exploreMore(request, pk):
     post.totalComments = Comment.objects.filter(post=pk).count()
     userAbout = myAbout(post.user)
     post.userProfilePicture = userAbout.profilePicture.url
+    post.userId = post.user.id
     try:
         post.firstComment = Comment.objects.filter(post=pk)[:1][0]
     except :
@@ -362,6 +376,10 @@ def profile(request, pk):
     zero2 = 0
     lenOfPosts = len(userPosts)
     userPosts = userPosts.values()
+
+    isFollowing = False
+    if request.user in aboutUser.followed_by.all():
+        isFollowing = True
     
     subListLen = math.ceil(lenOfPosts/3)
     while zero < subListLen:
@@ -391,6 +409,7 @@ def profile(request, pk):
         'aboutUser': aboutUser,
         'userPosts': posts,
         'totalPosts': totalPosts,
+        'isFollowing': isFollowing,
     })
 
 @login_required(login_url='/accounts/login/')
@@ -450,15 +469,14 @@ def getMoreUserPost(request):
 
     if request.method == 'POST':
         postId = data['postId']
-    print(postId)
-    post2 = Post.objects.filter(id__lt = postId[0], user = Post.objects.get(id=postId[0]).user).exclude(id__in=postId)[:2]#[(page_number-1)*2:page_number*2]
+    post2 = Post.objects.filter(id__lt = postId[0], user = Post.objects.get(id=postId[0]).user).exclude(id__in=postId).order_by('-date')[:2]#[(page_number-1)*2:page_number*2]
     # for i in post2:
     #     print(i.image.url)
-    print(post2)
     post = list(post2.values())
     for i in post:
         user = User.objects.get(id=i['user_id'])
         i['userfullname'] = user.first_name+' '+user.last_name
+        i['userId'] = user.id
         aboutUser = myAbout(user)
         i['userProfilePricture'] = aboutUser.profilePicture.url
         postt = Post.objects.get(id=i['id'])
@@ -482,8 +500,42 @@ def getMoreUserPost(request):
 
 @login_required(login_url='/accounts/login/')
 def editProfile(request):
-    #myUsername = request.user.username
+
     aboutMe = myAbout(request.user)
+    if request.method == 'POST':
+        try:
+            profilePicture = request.FILES['pp']
+            if request.user.about:
+                currentPP = request.user.about.profilePicture
+                if not currentPP.url == '/media/images/useravater.png':
+                    currentPP.delete(save=True)
+                request.user.about.profilePicture=profilePicture
+                request.user.about.save()
+            
+        except :
+            pass
+        username = request.POST['username']
+        if User.objects.filter(username=username).exists() and username != request.user.username:
+            messages.error(request, 'This Username is already taken')
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        if ' ' in username or len(username) < 1:
+            messages.error(request, 'Invalid username')
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        fullname = request.POST['fullName']
+        website = request.POST['website']
+        bio = request.POST['bio']
+        email = request.POST['email']
+        try:
+            User.objects.filter(id=request.user.id).update(username=username, first_name = fullname, email=email)
+            About.objects.filter(user=request.user).update(website=website, bio=bio)
+            messages.success(request, 'Profile updated successfully.')
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        except :
+            messages.error(request, 'Can\'t update your profile')
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        
+         
+
     return render(request, 'editprofile.html',{
         'aboutMe': aboutMe,
     })
@@ -503,7 +555,67 @@ def photoUploadHandler(request):
         img = request.FILES['photo']
         caption = request.POST['caption']
         Post.objects.create(user=user, image=img, caption = caption)
-        return redirect('/profile')
+        return redirect('/profile/'+str(request.user.id))
+
+@login_required(login_url='/accounts/login/')
+def follow(request, pk):
+    me = request.user
+    user = User.objects.get(id=pk)
+    aboutMe = myAbout(me)
+    aboutUser = myAbout(user)
+    aboutMe.following.add(user)
+    aboutMe.chatList.add(user)
+    aboutUser.followed_by.add(me)
+    aboutUser.chatList.add(me)
+
+    # Creating Notification
+    if not Notification.objects.filter(user1 = user, user2=me, topic = 'follow').exists():
+        Notification.objects.create(user1 = user, user2=me, topic = 'follow')
+
+    return JsonResponse({'response': 'ok'})
+
+@login_required(login_url='/accounts/login/')
+def unfollow(request, pk):
+    me = request.user
+    user = User.objects.get(id=pk)
+    aboutMe = myAbout(me)
+    aboutUser = myAbout(user)
+    aboutMe.following.remove(user)
+    aboutMe.chatList.remove(user)
+    aboutUser.followed_by.remove(me)
+    aboutUser.chatList.remove(me)
+
+    # deleting notification
+    if Notification.objects.filter(user1 = user, user2=me, topic = 'follow').exists():
+        Notification.objects.filter(user1 = user, user2=me, topic = 'follow').delete()
+
+    return JsonResponse({'response': 'ok'})
+
+@login_required(login_url='/accounts/login/')
+def getNotifications(request):
+    user1 = request.user
+    n = Notification.objects.filter(user1=user1).order_by('-date')[:10]
+    n = list(n.values())
+    for i in n:
+        i['profilePicture'] = myAbout(User.objects.get(id=i['user2_id'])).profilePicture.url
+        i['who'] = User.objects.get(id=i['user2_id']).username
+    
+    return JsonResponse({'response': n})
+
+@login_required(login_url='/accounts/login/')
+def searchUser(request):
+    name = json.loads(request.body.decode("utf-8"))['name']
+    users = User.objects.filter(Q(username__icontains = name) | Q(first_name__icontains = name))#.filter(first_name__icontains = name)
+    users = list(users.values())
+    for i in users:
+        del i['password']
+        del i['email']
+        del i['last_login']
+        del i['date_joined']
+        i['profilePicture'] = myAbout(User.objects.get(id=i['id'])).profilePicture.url
+    return JsonResponse({'response': users})
+
+
 
 
 
@@ -529,13 +641,13 @@ def handleSignup(request):
             myuser = User.objects.create_user(username, email, pass1)
             myuser.first_name = data['fullname']
             myuser.save()
-            messages.success(request, 'Your account created successfully.')
+            #messages.success(request, 'Your account created successfully.')
         except:
             return JsonResponse({'response':'Username must contain letters, digits and @/./+/-/_ only.'})
         user = authenticate(username=username, password=pass1)
         if user is not None:
             login(request, user)
-            messages.success(request, 'You are Logged in.')
+            #messages.success(request, 'You are Logged in.')
             return JsonResponse({'response':'ok'})
     else:
         return HttpResponse('404 - Page Not Found')
@@ -549,7 +661,7 @@ def handleLogin(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request, 'You are now Logged in.')
+            #messages.success(request, 'You are now Logged in.')
             return JsonResponse({'response': 'ok'})
         else:
             return JsonResponse({'response': 'Invalid username or password, please try again'})
@@ -560,7 +672,7 @@ def handleLogin(request):
 
 def handleLogout(request):
     logout(request)
-    messages.warning(request, 'You are Logged out.')
+    #messages.warning(request, 'You are Logged out.')
     #return JsonResponse({'response': 'ok'})
     return redirect(request.META['HTTP_REFERER'])
 

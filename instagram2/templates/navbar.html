@@ -25,39 +25,25 @@
                 </div></a>
             </div>
             <div class="hide-small pc">
-                <input style="height: 24px; width: 200px; border-radius: 3px; border: 1px solid gray; background-color: rgb(250, 250, 250); text-align: center; font-family:Arial, FontAwesome;" type="text" placeholder="&#xF002; search">
-                <div class="card-4 white hide" style="position: absolute; top: 150%; height: 400px; width: 400px; left: -50%;">
-                    <div class="pc mr8" style="height: 100%;">
+                <input id="searchInput" onkeypress="searchUser2(event)" style="height: 24px; width: 200px; border-radius: 3px; border: 1px solid gray; background-color: rgb(250, 250, 250); text-align: center; font-family:Arial, FontAwesome;" type="text" placeholder="&#xF002; search">
+                <div id="searchContainer" class="card-4 white hide" style="position: absolute; top: 150%; height: 400px; width: 400px; left: -50%; z-index: 1;">
+                    <div class="pc mrx8 mrb8" style="height: 100%; margin-top: 36px;">
                         <div class="space-between hide">
                             <p><b>Recent</b></p>
                             <p class="text-blue">Clear All</p>
                         </div>
-                        <div class="hide" style="position: absolute; top: 45%; width: 100%;">
-                            <p style="text-align: center;" class="text-gray">No results found.</p>
+                        <div id="noResultFound" class="hide" style="position: absolute; top: 45%; width: 100%;">
+                            <p style="text-align: center;" class="text-gray">No result found.</p>
                         </div>
-
-                        <div class="hide">
-                            <div class="flex pdx8 pdt8 hover-light-gray round5">
+                        <p onclick="hideSearchContainer()" class="pointer hover-red pdx8 pdy4" style="font-size: 20px; position: absolute; top: -46px; right: 10px;">x</p>
+                        <div id="resultFound" class="hide">
+                            <!-- <div class="flex pdx8 pdt8 hover-light-gray round5">
                                 <img style="width: 50px; height: 50px; border-radius: 50%;" src="{% static 'images/useravater.png' %}" alt="">
                                 <div style="margin-top: -12px; margin-left: 8px;">
                                     <p>asif.biswas</p>
                                     <p style="margin-top: -12px; opacity: .5;">Asif Biswas</p>
                                 </div>
-                            </div>
-                            <div class="flex pdx8 pdt8 hover-light-gray round5">
-                                <img style="width: 50px; height: 50px; border-radius: 50%;" src="{% static 'images/useravater.png' %}" alt="">
-                                <div style="margin-top: -12px; margin-left: 8px;">
-                                    <p>asif.biswas</p>
-                                    <p style="margin-top: -12px; opacity: .5;">Asif Biswas</p>
-                                </div>
-                            </div>
-                            <div class="flex pdx8 pdt8 hover-light-gray round5">
-                                <img style="width: 50px; height: 50px; border-radius: 50%;" src="{% static 'images/useravater.png' %}" alt="">
-                                <div style="margin-top: -12px; margin-left: 8px;">
-                                    <p>asif.biswas</p>
-                                    <p style="margin-top: -12px; opacity: .5;">Asif Biswas</p>
-                                </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -93,9 +79,10 @@
                             <svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 0 24 24" width="28px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                             <div class="tooltiptext-show card-4 hide-scrollbar" style="top: 150%; right: 0; background-color: white; max-width: 500px; width: 100vw; overflow-y: scroll; max-height: 400px;">
                                 <div class="mr16">
-                                    <div class="hide">
+                                    <div id="notificationContainer-l" class="hide">
                                         <h2>Notifications</h2>
-                                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                        
+                                        <!-- <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                             <div style="width: 50px;">
                                                 <img style="width: 40px; height: 40px; border-radius: 50%;" src="{% static 'images/useravater.png' %}" alt="">
                                             </div>
@@ -105,99 +92,10 @@
                                             <div style="width: 50px;">
                                                 <img style="width: 40px; height: 40px;" src="{% static 'images/trk.jpg' %}" alt="">
                                             </div>
-                                        </div>
-    
-                                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                            <div style="width: 50px;">
-                                                <img style="width: 40px; height: 40px; border-radius: 50%;" src="{% static 'images/useravater.png' %}" alt="">
-                                            </div>
-                                            <div style="width: 100%; margin: 8px 8px 0px 8px;">
-                                                <b>shanto69</b> mentioned you in a comment: @asif. 
-                                            </div>
-                                            <div style="width: 50px;">
-                                                <img style="width: 40px; height: 40px;" src="{% static 'images/trk.jpg' %}" alt="">
-                                            </div>
-                                        </div>
-                                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                            <div style="width: 50px;">
-                                                <img style="width: 40px; height: 40px; border-radius: 50%;" src="{% static 'images/useravater.png' %}" alt="">
-                                            </div>
-                                            <div style="width: 100%; margin: 8px 8px 0px 8px;">
-                                                <b>shanto69</b> mentioned you in a comment: @asif. 
-                                            </div>
-                                            <div style="width: 50px;">
-                                                <img style="width: 40px; height: 40px;" src="{% static 'images/trk.jpg' %}" alt="">
-                                            </div>
-                                        </div>
-                                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                            <div style="width: 50px;">
-                                                <img style="width: 40px; height: 40px; border-radius: 50%;" src="{% static 'images/useravater.png' %}" alt="">
-                                            </div>
-                                            <div style="width: 100%; margin: 8px 8px 0px 8px;">
-                                                <b>shanto69</b> mentioned you in a comment: @asif. 
-                                            </div>
-                                            <div style="width: 50px;">
-                                                <img style="width: 40px; height: 40px;" src="{% static 'images/trk.jpg' %}" alt="">
-                                            </div>
-                                        </div>
-                                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                            <div style="width: 50px;">
-                                                <img style="width: 40px; height: 40px; border-radius: 50%;" src="{% static 'images/useravater.png' %}" alt="">
-                                            </div>
-                                            <div style="width: 100%; margin: 8px 8px 0px 8px;">
-                                                <b>shanto69</b> mentioned you in a comment: @asif. 
-                                            </div>
-                                            <div style="width: 50px;">
-                                                <img style="width: 40px; height: 40px;" src="{% static 'images/trk.jpg' %}" alt="">
-                                            </div>
-                                        </div>
-                                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                            <div style="width: 50px;">
-                                                <img style="width: 40px; height: 40px; border-radius: 50%;" src="{% static 'images/useravater.png' %}" alt="">
-                                            </div>
-                                            <div style="width: 100%; margin: 8px 8px 0px 8px;">
-                                                <b>shanto69</b> mentioned you in a comment: @asif. 
-                                            </div>
-                                            <div style="width: 50px;">
-                                                <img style="width: 40px; height: 40px;" src="{% static 'images/trk.jpg' %}" alt="">
-                                            </div>
-                                        </div>
-                                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                            <div style="width: 50px;">
-                                                <img style="width: 40px; height: 40px; border-radius: 50%;" src="{% static 'images/useravater.png' %}" alt="">
-                                            </div>
-                                            <div style="width: 100%; margin: 8px 8px 0px 8px;">
-                                                <b>shanto69</b> mentioned you in a comment: @asif. 
-                                            </div>
-                                            <div style="width: 50px;">
-                                                <img style="width: 40px; height: 40px;" src="{% static 'images/trk.jpg' %}" alt="">
-                                            </div>
-                                        </div>
-                                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                            <div style="width: 50px;">
-                                                <img style="width: 40px; height: 40px; border-radius: 50%;" src="{% static 'images/useravater.png' %}" alt="">
-                                            </div>
-                                            <div style="width: 100%; margin: 8px 8px 0px 8px;">
-                                                <b>shanto69</b> mentioned you in a comment: @asif. 
-                                            </div>
-                                            <div style="width: 50px;">
-                                                <img style="width: 40px; height: 40px;" src="{% static 'images/trk.jpg' %}" alt="">
-                                            </div>
-                                        </div>
-                                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                            <div style="width: 50px;">
-                                                <img style="width: 40px; height: 40px; border-radius: 50%;" src="{% static 'images/useravater.png' %}" alt="">
-                                            </div>
-                                            <div style="width: 100%; margin: 8px 8px 0px 8px;">
-                                                <b>shanto69</b> mentioned you in a comment: @asif. 
-                                            </div>
-                                            <div style="width: 50px;">
-                                                <img style="width: 40px; height: 40px;" src="{% static 'images/trk.jpg' %}" alt="">
-                                            </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                      
-                                    <div class="" style="height: inherit; margin: 36px 0 50px 0;">
+                                    <div id="whenSomeone-l" class="" style="height: inherit; margin: 36px 0 50px 0;">
                                         <div style="height: inherit;">
                                             <div>
                                                 <div class="flex-center">
@@ -269,9 +167,9 @@
                             <div class="white pc hide-scrollbar" style="position: absolute; bottom: 103%; left: 0; width: 100vw; height: calc(100vh - 88px); z-index: 10; overflow: scroll;">
                                 
                                 <div class="" style="margin: 8px 24px 8px 8px; height: 100%;">
-                                    <div class="">
+                                    <div id="notificationContainer-s" class="hide">
                                         <h2>Notifications</h2>
-                                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                        <!-- <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                             <div style="width: 50px;">
                                                 <img style="width: 40px; height: 40px; border-radius: 50%;" src="{% static 'images/useravater.png' %}" alt="">
                                             </div>
@@ -281,9 +179,9 @@
                                             <div style="width: 50px;">
                                                 <img style="width: 40px; height: 40px;" src="{% static 'images/trk.jpg' %}" alt="">
                                             </div>
-                                        </div>
+                                        </div> -->
     
-                                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                        <!-- <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                                             <div style="width: 50px;">
                                                 <img style="width: 40px; height: 40px; border-radius: 50%;" src="{% static 'images/useravater.png' %}" alt="">
                                             </div>
@@ -293,87 +191,11 @@
                                             <div style="width: 50px;">
                                                 <img style="width: 40px; height: 40px;" src="{% static 'images/trk.jpg' %}" alt="">
                                             </div>
-                                        </div>
-                                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                            <div style="width: 50px;">
-                                                <img style="width: 40px; height: 40px; border-radius: 50%;" src="{% static 'images/useravater.png' %}" alt="">
-                                            </div>
-                                            <div style="width: 100%; margin: 8px 8px 0px 8px;">
-                                                <b>shanto69</b> mentioned you in a comment: @asif. 
-                                            </div>
-                                            <div style="width: 50px;">
-                                                <img style="width: 40px; height: 40px;" src="{% static 'images/trk.jpg' %}" alt="">
-                                            </div>
-                                        </div>
-                                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                            <div style="width: 50px;">
-                                                <img style="width: 40px; height: 40px; border-radius: 50%;" src="{% static 'images/useravater.png' %}" alt="">
-                                            </div>
-                                            <div style="width: 100%; margin: 8px 8px 0px 8px;">
-                                                <b>shanto69</b> mentioned you in a comment: @asif. 
-                                            </div>
-                                            <div style="width: 50px;">
-                                                <img style="width: 40px; height: 40px;" src="{% static 'images/trk.jpg' %}" alt="">
-                                            </div>
-                                        </div>
-                                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                            <div style="width: 50px;">
-                                                <img style="width: 40px; height: 40px; border-radius: 50%;" src="{% static 'images/useravater.png' %}" alt="">
-                                            </div>
-                                            <div style="width: 100%; margin: 8px 8px 0px 8px;">
-                                                <b>shanto69</b> mentioned you in a comment: @asif. 
-                                            </div>
-                                            <div style="width: 50px;">
-                                                <img style="width: 40px; height: 40px;" src="{% static 'images/trk.jpg' %}" alt="">
-                                            </div>
-                                        </div>
-                                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                            <div style="width: 50px;">
-                                                <img style="width: 40px; height: 40px; border-radius: 50%;" src="{% static 'images/useravater.png' %}" alt="">
-                                            </div>
-                                            <div style="width: 100%; margin: 8px 8px 0px 8px;">
-                                                <b>shanto69</b> mentioned you in a comment: @asif. 
-                                            </div>
-                                            <div style="width: 50px;">
-                                                <img style="width: 40px; height: 40px;" src="{% static 'images/trk.jpg' %}" alt="">
-                                            </div>
-                                        </div>
-                                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                            <div style="width: 50px;">
-                                                <img style="width: 40px; height: 40px; border-radius: 50%;" src="{% static 'images/useravater.png' %}" alt="">
-                                            </div>
-                                            <div style="width: 100%; margin: 8px 8px 0px 8px;">
-                                                <b>shanto69</b> mentioned you in a comment: @asif. 
-                                            </div>
-                                            <div style="width: 50px;">
-                                                <img style="width: 40px; height: 40px;" src="{% static 'images/trk.jpg' %}" alt="">
-                                            </div>
-                                        </div>
-                                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                            <div style="width: 50px;">
-                                                <img style="width: 40px; height: 40px; border-radius: 50%;" src="{% static 'images/useravater.png' %}" alt="">
-                                            </div>
-                                            <div style="width: 100%; margin: 8px 8px 0px 8px;">
-                                                <b>shanto69</b> mentioned you in a comment: @asif. 
-                                            </div>
-                                            <div style="width: 50px;">
-                                                <img style="width: 40px; height: 40px;" src="{% static 'images/trk.jpg' %}" alt="">
-                                            </div>
-                                        </div>
-                                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                            <div style="width: 50px;">
-                                                <img style="width: 40px; height: 40px; border-radius: 50%;" src="{% static 'images/useravater.png' %}" alt="">
-                                            </div>
-                                            <div style="width: 100%; margin: 8px 8px 0px 8px;">
-                                                <b>shanto69</b> mentioned you in a comment: @asif. 
-                                            </div>
-                                            <div style="width: 50px;">
-                                                <img style="width: 40px; height: 40px;" src="{% static 'images/trk.jpg' %}" alt="">
-                                            </div>
-                                        </div>
+                                        </div> -->
+                                        
                                     </div>
                                      
-                                    <div class="hide" style="height: inherit">
+                                    <div id="whenSomeone-s" class="" style="height: inherit">
                                         <div style="height: inherit;">
                                             <div style="margin-top: 40%;">
                                                 <div class="flex-center">
@@ -468,7 +290,7 @@
             </div>
 
             <div class="hide-small hide-medium" style="position: absolute; top: 0; left: 24px;">
-                <div style="font-family: cursive; font-size: 32px; font-weight: bolder; color: white;">Instagram</div>
+                <a href="{% url 'home' %}"><div style="font-family: cursive; font-size: 32px; font-weight: bolder; color: white;">Instagram</div></a>
             </div>
             <div onclick="hideStories()" class="hide-small hide-medium pointer hover-red" style="position: absolute; top: 0; right: 24px;">
                 <span><svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px" fill="#FFFFFF"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg></span>
@@ -512,11 +334,52 @@
             // }
         }
 
+        let getNotifications2l = true
+        let getNotifications2s = true
         function favIconClicked(x){
             if (x===1){
                 document.getElementById("favorite-filled").className='tooltip'
                 document.getElementById("favorite-outlined").className='hide'
                 document.getElementById("more").className='hide'
+
+                if(getNotifications2l == true){
+                    fetch('/getNotifications/',{
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'application/json, text/plain',
+                            'Contentt-type': 'application/json',
+                            'X-CSRFToken': csrftoken,
+                        }
+                    })
+                    .then((response)=>{
+                        response.json().then((result)=>{
+                            if(result.response.length){
+                                document.getElementById("notificationContainer-l").innerHTML = ''
+                                document.getElementById("notificationContainer-l").innerHTML += '<h2>Notifications</h2>'
+                                document.getElementById("notificationContainer-l").className = ''
+                                document.getElementById("whenSomeone-l").className = 'hide'
+                                for (let index = 0; index < result.response.length; index++) {
+                                    const p = result.response[index];
+                                    let nn = '<div class="border-bottom border-grey hover-light-grey pd4 " style="display: flex; justify-content: space-between; margin-bottom: 10px;"><div style="width: 50px;"><img style="width: 40px; height: 40px; border-radius: 50%;" src="'+p.profilePicture+'" alt=""></div><div style="width: 100%; margin: 8px 8px 0px 8px;"><b>'+p.who+'</b> '
+                                    let nn1
+                                    if (p.topic === 'follow'){
+                                        nn1 = 'started following you.'
+                                    }else if(p.topic === 'commented'){
+                                        nn1 = 'commented your photo.'
+                                    }else{
+                                        nn1 = 'liked your photo'
+                                    }
+                                    let nn2 = '</div><div style="width: 50px;"></div> </div>'
+
+                                    const nn0 = nn+nn1+nn2
+                                    document.getElementById("notificationContainer-l").innerHTML += nn0
+                                    
+                                }
+                            }
+                            getNotifications2l = false
+                        })
+                    })
+                }
             }else{
                 document.getElementById("favorite-filled").className='hide'
                 document.getElementById("favorite-outlined").className=''
@@ -528,6 +391,45 @@
                 document.getElementById("favorite-filled-bottom").className=''
                 document.getElementById("favorite-outlined-bottom").className='hide'
                 document.getElementById("moreBottom").className = 'hide'
+
+                if(getNotifications2s == true){
+                    fetch('/getNotifications/',{
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'application/json, text/plain',
+                            'Contentt-type': 'application/json',
+                            'X-CSRFToken': csrftoken,
+                        }
+                    })
+                    .then((response)=>{
+                        response.json().then((result)=>{
+                            if(result.response.length){
+                                document.getElementById("notificationContainer-s").innerHTML = ''
+                                document.getElementById("notificationContainer-s").innerHTML += '<h2>Notifications</h2>'
+                                document.getElementById("notificationContainer-s").className = ''
+                                document.getElementById("whenSomeone-s").className = 'hide'
+                                for (let index = 0; index < result.response.length; index++) {
+                                    const p = result.response[index];
+                                    let nn = '<div class="border-bottom border-grey hover-light-grey pd4 " style="display: flex; justify-content: space-between; margin-bottom: 10px;"><div style="width: 50px;"><img style="width: 40px; height: 40px; border-radius: 50%;" src="'+p.profilePicture+'" alt=""></div><div style="width: 100%; margin: 8px 8px 0px 8px;"><b>'+p.who+'</b> '
+                                    let nn1
+                                    if (p.topic === 'follow'){
+                                        nn1 = 'started following you.'
+                                    }else if(p.topic === 'commented'){
+                                        nn1 = 'commented your photo.'
+                                    }else{
+                                        nn1 = 'liked your photo'
+                                    }
+                                    let nn2 = '</div><div style="width: 50px;"></div> </div>'
+
+                                    const nn0 = nn+nn1+nn2
+                                    document.getElementById("notificationContainer-s").innerHTML += nn0
+                                    
+                                }
+                            }
+                            getNotifications2s = false
+                        })
+                    })
+                }
             }else{
                 document.getElementById("favorite-filled-bottom").className='hide'
                 document.getElementById("favorite-outlined-bottom").className=''
@@ -575,6 +477,110 @@
        function scrollToBottom(){
             let y = window.pageYOffset
             window.scrollTo({top: y+160, behavior: 'smooth'})
+        }
+
+        clickedToSave=(id)=>{
+            filled = '<svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 0 24 24" width="28px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg>'
+            unfilled = '<svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 0 24 24" width="28px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2zm0 15l-5-2.18L7 18V5h10v13z"/></svg>'
+            // if(event === filled){
+            //     event.target.innerHTML = unfilled
+            // }else{
+            //     event.target.innerHTML = filled
+            // }
+            // console.log(event.target.className);
+            let elm = document.getElementById("savePost-"+id)
+            if(elm.className === 'unfilled pointer'){
+                elm.innerHTML = filled
+                document.getElementById("savePost-"+id).className = 'filled pointer'
+            }else{
+                elm.innerHTML = unfilled
+                document.getElementById("savePost-"+id).className = 'unfilled pointer'
+            }
+            
+        }
+
+        function follow(id){
+            fetch('/follow/'+id+'/',{
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json, text/plain',
+                    'Contentt-type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                }
+            })
+            .then((response)=>{
+                response.json().then((result)=>{
+                    if(result.response === 'ok'){
+                        document.getElementById("follow-"+id).className = 'centery text-blue pointer mrl4 hide'
+                        document.getElementById("unfollow-"+id).className = 'centery text-grey pointer mrl4'
+                    }
+                })
+            })
+            
+        }
+
+        function unfollow(id){
+            fetch('/unfollow/'+id+'/',{
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json, text/plain',
+                    'Contentt-type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                }
+            })
+            .then((response)=>{
+                response.json().then((result)=>{
+                    if(result.response === 'ok'){
+                        document.getElementById("follow-"+id).className = 'centery text-blue pointer mrl4'
+                        document.getElementById("unfollow-"+id).className = 'centery text-grey pointer mrl4 hide'
+                    }
+                })
+            })
+            
+        }
+    
+        function searchUser2(e){
+            prevVal = ''
+            //console.log(e.target.value);
+            setTimeout(()=>{
+                newVal = e.target.value
+                if(prevVal !== newVal){
+                    prevVal = newVal
+                    fetch('/searchUser/',{
+                        method: 'POST',
+                        body: JSON.stringify({'name': prevVal}),
+                        headers: {
+                            'Accept': 'application/json, text/plain',
+                            'Contentt-type': 'application/json',
+                            'X-CSRFToken': csrftoken,
+                        }
+                    })
+                    .then((response)=>{
+                        response.json().then((result)=>{
+                            if(result.response.length){
+                                document.getElementById("noResultFound").className = 'hide'
+                                document.getElementById("resultFound").className = ''
+                                document.getElementById("searchContainer").className = 'card-4 white'
+
+                                for (let index = 0; index < result.response.length; index++) {
+                                    const elm = result.response[index];
+                                    const searchResult = '<div class="flex pdx8 pdt8 hover-light-gray round5"><img style="width: 50px; height: 50px; border-radius: 50%;" src="'+elm.profilePicture+'" alt=""><div style="margin-top: -12px; margin-left: 8px;"><p>'+elm.username+'</p><p style="margin-top: -12px; opacity: .5;">'+elm.first_name+' '+elm.last_name+'</p></div></div>'
+                                    document.getElementById("resultFound").innerHTML += searchResult
+                                }
+                            }else{
+                                document.getElementById("searchContainer").className = 'card-4 white'
+                                document.getElementById("noResultFound").className = ''
+                            }
+                        })
+                    })
+                }
+            },1000)
+            
+            //console.log(9);
+        }
+
+        function hideSearchContainer(){
+            document.getElementById("searchContainer").className = 'hide'
         }
     </script>
 </body>

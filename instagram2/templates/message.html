@@ -63,11 +63,11 @@
                         </div></a>
                         <div style="width: 100%;" class="flex">
                             <span class="hide" style="margin-right: 16px; margin-top: 4px;"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none" opacity=".87"/><path d="M17.51 3.87L15.73 2.1 5.84 12l9.9 9.9 1.77-1.77L9.38 12l8.13-8.13z"/></svg></span>
-                            <img id="chatUserProfilePicture" style="width: 35px; height: 35px; border-radius: 50%;" src="{% static 'images/useravater.png' %}" alt="user">
-                            <div style="margin-top: -12px; margin-left: 8px;">
+                            <a id="goToProfile-i"><img id="chatUserProfilePicture" style="width: 35px; height: 35px; border-radius: 50%;" src="{% static 'images/useravater.png' %}" alt="user"></a>
+                            <a id="goToProfile"><div style="margin-top: -12px; margin-left: 8px;">
                                 <p id="chatUserName">Unknown user</p>
                                 <p style="margin-top: -16px; opacity: .5; font-size: small;">Active 1 hour ago</p>
-                            </div>
+                            </div></a>
                         </div>
                         <div style="width: 30px;"><div class="hover-black" style="border-radius: 50%; border: 1px solid black; padding: 4px 10px; font-weight: bold; font-family: Georgia, 'Times New Roman', Times, serif; margin-top: -8px;">i</div></div>
                     </div>
@@ -218,6 +218,8 @@
 
         chatUserProfilePicture = document.getElementById("userProfilePicture-"+id).src
         document.getElementById("chatUserProfilePicture").src = chatUserProfilePicture
+        document.getElementById("goToProfile").href = '/profile/'+id+'/'
+        document.getElementById("goToProfile-i").href = '/profile/'+id+'/'
 
         var chatUserName = document.getElementById("chatUserName-"+id).innerText
         document.getElementById("chatUserName").innerText = chatUserName

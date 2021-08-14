@@ -22,4 +22,8 @@ urlpatterns = [
     path('sendMessageFromStories/', views.sendMessageFromStories, name='sendMessageFromStories'),
     path('userPosts/<str:pk>/', views.userPosts, name='userPosts'),
     path('getMoreUserPost/', views.getMoreUserPost, name='getMoreUserPost'),
+    path('follow/<str:pk>/', views.follow, name='follow'),
+    path('unfollow/<str:pk>/', views.unfollow, name='unfollow'),
+    path('getNotifications/', views.getNotifications, name='getNotifications'),
+    path('searchUser/', views.searchUser, name='searchUser'),
 ]

@@ -3,26 +3,44 @@
 
 {% block body %}
 
-<div class="home-margin-top">
+<div class="home-margin-top pc">
     <div class="mr8">
         <div style="width: 100%; max-width: 700px; margin: auto;">
             <div class="" style="display: flex; justify-content: space-around;">
                 <div class="pp-img-container pdt16" class="centerx ">
-                    <img src="{{aboutMe.profilePicture.url}}" alt="">
+                    <img src="{{aboutUser.profilePicture.url}}" alt="">
                 </div>
                 <div style="width: 100%; max-width: 400px; margin-left: 36px;">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <p class="p-username" style="margin-right: 12px;">{{ request.user.username }}</p>
-                        <button class="button mrx16 hover-gray blue hide" style="width: 80%;">Follow</button>
-                        <!-- <p class="border border-gray mrx16 pdx24 pdy8 round5 hover-blue hide-small">Message</p> -->
-                        <a href={% url 'editProfile' %}><p class="border border-gray mrx16 pdx24 pdy8 round5 hover-blue hide-small">Edit Profile</p></a>
+                        <p class="p-username" style="margin-right: 12px;">{{ user.username }}</p>
+                        {% if user.id == request.user.id %}
+                        <a href={% url 'editProfile' %}><p class="border border-gray mrx16 pdx8 pdy8 round5 hover-blue hide-small" style="min-width: 80px;">Edit Profile</p></a>
+                        {% else %}
+                        {% if isFollowing %}
+                        <button id="pfollow-{{user.id}}" onclick="pfollow({{user.id}})" class="button mrx4 hover-gray blue hide" style="width: 80%; max-width: 100px;">Follow</button>
+                        <button id="punfollow-{{user.id}}" onclick="punfollow({{user.id}})" class="button mrx4 hover-gray light-grey" style="width: 80%; max-width: 100px;">Following</button>
+                        <p onclick="pShowMsgContainer()" id="pmessage-l" class="pointer border border-gray mrx8 pdx8 pdy8 round5 hover-blue hide-small">Message</p>
+                        {% else %}
+                        <button id="pfollow-{{user.id}}" onclick="pfollow({{user.id}})" class="button mrx4 hover-gray blue" style="width: 80%; max-width: 100px;">Follow</button>
+                        <button id="punfollow-{{user.id}}" onclick="punfollow({{user.id}})" class="button mrx4 hover-gray light-grey hide" style="width: 80%; max-width: 100px;">Following</button>
+                        <p onclick="pShowMsgContainer()" id="pmessage-l" class="pointer border border-gray mrx8 pdx8 pdy8 round5 hover-blue hide-small hide">Message</p>
+                        {% endif %}
+                        {% endif %}
                         <p class="p-username" style="margin-top: 8px; padding: 0 8px;">...</p>
                     </div>
 
-                    <div class="hide-medium hide-large" style="margin: -16px 8px 18px 0; opacity: .5; font-size: 19px;">{{ request.user.first_name }} {{ request.user.last_name }}</div>
+                    <div class="hide-medium hide-large" style="margin: -16px 8px 18px 0; opacity: .5; font-size: 19px;">{{ user.first_name }} {{ user.last_name }}</div>
 
                     <div class="flex" style="width: 100%;">
+                        {% if user.id == request.user.id %}
                         <a href={% url 'editProfile' %}><div class="border border-gray pdx24 pdy8 round5 hover-blue hide-large hide-medium" style="text-align: center; width: 60%; max-width: 120px; margin: -8px 8px 12px 0;">Edit Profile</div></a>
+                        {% else %}
+                        {% if isFollowing %}
+                        <div onclick="pShowMsgContainer()" id="pmessage-s" class="pointer border border-gray pdx24 pdy8 round5 hover-blue hide-large hide-medium" style="text-align: center; width: 60%; max-width: 120px; margin: -8px 8px 12px 0;">Message</div>
+                        <!-- <p class="border border-gray mrx16 pdx24 pdy8 round5 hover-blue hide-small">Message</p> -->
+                        {% endif %}
+                        <div onclick="pShowMsgContainer()" id="pmessage-s" class="pointer pmessage border border-gray pdx24 pdy8 round5 hover-blue hide-large hide-medium hide" style="text-align: center; width: 60%; max-width: 120px; margin: -8px 8px 12px 0;">Message</div>
+                        {% endif %}
                         <!-- <div class="border border-gray pdx24 pdy8 round5 hover-blue hide-large hide-medium" style="text-align: center; width: 60%; max-width: 120px; margin: -8px 8px 12px 0;">Message</div> -->
                         <!-- <div class="border border-gray pdx8 pdy8 round5 hover-gray hide-large hide-medium" style="text-align: center; width: 40%; max-width: 60px; margin: -8px 8px 12px 0; height: 18px;">
                             <span><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></span>
@@ -35,25 +53,32 @@
                         <p><b>{{aboutUser.followed_by.all.count}}</b> followers</p>
                         <p><b>{{aboutUser.following.all.count}}</b> following</p>
                     </div>
-                    {% if aboutUser.bio %}
                     <div class="hide-medium hide-large">{{aboutUser.bio}}</div>
-                    {% endif %}
+                    
                     {% if aboutUser.followed_by.0 %}
                     <div class="hide-medium hide-large"><span style="opacity: .6;">Followed by </span> {% with aboutUser.followed_by.0 as f %}{{f.first_name}}{% endwith %}, aymansadiq10 <span style="opacity: .6;">and</span> tahsankhan</div>
                     {% endif %}
                     <div class="hide-medium hide-large"><span style="opacity: .6;">Followed by </span> jhankarmahbub, aymansadiq10 <span style="opacity: .6;">and</span> tahsankhan</div>
                 </div>
             </div>
-            <div class="p-username hide-small" style="margin: 16px 8px 18px 0;">{{ request.user.first_name }} {{ request.user.last_name }}</div>
-            <p class="hide-small"><span style="opacity: .6;">Followed by </span> jhankarmahbub, aymansadiq10 <span style="opacity: .6;">and</span> tahsankhan</p>
+            <div class="p-username hide-small" style="margin: 16px 8px 18px 16px;">{{ user.first_name }} {{ user.last_name }}</div>
+            {% if aboutUser.bio %}<p class="hide-small mrl16">{{aboutUser.bio}}</p>{% endif %}
+            <p class="hide-small mrl16"><span style="opacity: .6;">Followed by </span> jhankarmahbub, aymansadiq10 <span style="opacity: .6;">and</span> tahsankhan</p>
         </div>
 
 
         <div style="width: 100%; max-width: 800px; margin: 36px auto; padding-top: 16px; border-top: 1px solid rgb(161, 161, 161);">
+            {% if userPosts %}
             <div class="flex pdb16">
                 <span><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg></span>
                 <span style="display: block; margin-top: 4px; margin-left: 8px;">Posts</span>
             </div>
+            {% else %}
+            <div class="flex pdb16">
+                <span><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg></span>
+                <span style="display: block; margin-top: 4px; margin-left: 8px;">No post available.</span>
+            </div>
+            {% endif %}
             {% for l in userPosts %}
             <div style="position: relative; padding-bottom: 33.333%;">
                 <div class="" style="top: 0; right: 0; bottom: 0; left: 0; display: flex; position: absolute;">
@@ -121,6 +146,97 @@
             </div> -->
         </div>
     </div>
+
+    <div id="msgFromProfile" class="hide" style="position: absolute; top: 30%; width: 100%; margin: auto; display: flex; justify-content: center;">
+        <div class="card-4 pd24 white round5" style="width: 80%; max-width: 500px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <textarea placeholder="Write a message..." name="" id="inputMessage" style="width: 90%; height: 100px;"></textarea>
+            <div style="display: flex; justify-content: space-around; width: 90%; margin-top: 16px;">
+                <button onclick="pHideMsgContainer()" class="button mrx4 pointer" style="width: 48%;">Cancel</button>
+                <button onclick="psendMessage()" class="button mrx4 pointer blue" style="width: 48%;">Send</button>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+<script>
+    function pfollow(id){
+        fetch('/follow/'+id+'/',{
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain',
+                'Contentt-type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            }
+        })
+        .then((response)=>{
+            response.json().then((result)=>{
+                if(result.response === 'ok'){
+                    document.getElementById("pfollow-"+id).className = 'button mrx4 hover-gray light-grey hide'
+                    document.getElementById("punfollow-"+id).className = 'button mrx4 hover-gray light-grey'
+                    document.getElementById("pmessage-s").className = 'pointer border border-gray mrx8 pdx16 pdy8 round5 hover-blue hide-medium hide-large'
+                    document.getElementById("pmessage-l").className = 'pointer border border-gray mrx8 pdx8 pdy8 round5 hover-blue hide-small'
+                    //document.getElementById("unfollow-"+id).className = 'centery text-grey pointer mrl4'
+                }
+            })
+        })
+        
+    }
+
+    function punfollow(id){
+        fetch('/unfollow/'+id+'/',{
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain',
+                'Contentt-type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            }
+        })
+        .then((response)=>{
+            response.json().then((result)=>{
+                if(result.response === 'ok'){
+                    document.getElementById
+                    document.getElementById("pfollow-"+id).className = 'button mrx4 hover-gray blue'
+                    document.getElementById("punfollow-"+id).className = 'hide'
+                    document.getElementById("pmessage-l").className = 'hide'
+                    document.getElementById("pmessage-s").className = 'hide'
+                    //document.getElementById("unfollow-"+id).className = 'centery text-grey pointer mrl4'
+                }
+            })
+        })
+        
+    }
+    function pHideMsgContainer(){
+        document.getElementById("msgFromProfile").className = 'hide'
+    }
+    function pShowMsgContainer(){
+        document.getElementById("msgFromProfile").className = ''
+    }
+
+    userId = {{user.id}}
+    function psendMessage(){
+        const inpMsgVal = document.getElementById("inputMessage").value
+        fetch('/sendMessage/',{
+            method: 'POST',
+            body: JSON.stringify({
+                body: inpMsgVal,
+                receiver: userId
+            }),
+            headers: {
+                'Accept': 'application/json, text/plain',
+                'Contentt-type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            }
+        })
+        .then((response)=>{
+            response.json().then((result)=>{
+                if(result.response === 'sent'){
+                    window.location.href = '/message'
+                }
+                
+            })
+        })
+    }
+</script>
 
 {% endblock %}
