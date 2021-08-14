@@ -77,7 +77,7 @@ def getMorePost(request):
     if request.method == 'POST':
         postId = data['postId']
 
-    post2 = Post.objects.exclude(id__in=postId).order_by('?')[:2]#[(page_number-1)*2:page_number*2]
+    post2 = Post.objects.exclude(id__in=postId).order_by('?')[:3]#[(page_number-1)*2:page_number*2]
     # for i in post2:
     #     print(i.image.url)
     post = list(post2.values())

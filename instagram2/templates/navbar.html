@@ -26,7 +26,7 @@
             </div>
             <div class="hide-small pc">
                 <input id="searchInput" onkeypress="searchUser2(event)" style="height: 24px; width: 200px; border-radius: 3px; border: 1px solid gray; background-color: rgb(250, 250, 250); text-align: center; font-family:Arial, FontAwesome;" type="text" placeholder="&#xF002; search">
-                <div id="searchContainer" class="card-4 white hide" style="position: absolute; top: 150%; height: 400px; width: 400px; left: -50%; z-index: 1;">
+                <div id="searchContainer" class="card-4 white hide" style="position: absolute; top: 150%; height: 400px; width: 400px; left: -50%; z-index: 1; overflow-y: scroll;">
                     <div class="pc mrx8 mrb8" style="height: 100%; margin-top: 36px;">
                         <div class="space-between hide">
                             <p><b>Recent</b></p>
@@ -560,11 +560,12 @@
                             if(result.response.length){
                                 document.getElementById("noResultFound").className = 'hide'
                                 document.getElementById("resultFound").className = ''
+                                document.getElementById("resultFound").innerHTML = ''
                                 document.getElementById("searchContainer").className = 'card-4 white'
 
                                 for (let index = 0; index < result.response.length; index++) {
                                     const elm = result.response[index];
-                                    const searchResult = '<div class="flex pdx8 pdt8 hover-light-gray round5"><img style="width: 50px; height: 50px; border-radius: 50%;" src="'+elm.profilePicture+'" alt=""><div style="margin-top: -12px; margin-left: 8px;"><p>'+elm.username+'</p><p style="margin-top: -12px; opacity: .5;">'+elm.first_name+' '+elm.last_name+'</p></div></div>'
+                                    const searchResult = '<a href="/profile/'+elm.id+'"><div class="flex pdx8 pdt8 hover-light-gray round5"><img style="width: 50px; height: 50px; border-radius: 50%;" src="'+elm.profilePicture+'" alt=""><div style="margin-top: -12px; margin-left: 8px;"><p>'+elm.username+'</p><p style="margin-top: -12px; opacity: .5;">'+elm.first_name+' '+elm.last_name+'</p></div></div></a>'
                                     document.getElementById("resultFound").innerHTML += searchResult
                                 }
                             }else{
